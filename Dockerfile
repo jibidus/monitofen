@@ -15,3 +15,5 @@ RUN chown www-data:www-data -R /var/www/okovision/
 RUN cp /var/www/okovision/install/099-okovision.conf /etc/apache2/sites-available/.
 RUN a2ensite 099-okovision.conf
 RUN a2dissite 000-default
+
+COPY vhost.conf /etc/apache2/sites-available/000-default.conf
