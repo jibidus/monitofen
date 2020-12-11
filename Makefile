@@ -2,7 +2,10 @@ build:
 	docker build -t okovision .
 
 start:
-	docker run --rm -p 8080:80 okovision
+	docker-compose up
+
+stop:
+	docker-compose down --volumes
 
 bash:
-	docker run --rm -it -p 8080:80 okovision bash
+	docker-compose run okovision bash

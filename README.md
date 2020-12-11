@@ -1,3 +1,13 @@
+# How to start Okovision?
+
+```
+make build start
+```
+
+Go to http://localhost:8080
+
+Account: admin/okouser
+
 # Get measures
 
 List available measures:
@@ -49,7 +59,7 @@ curl 'http://192.168.1.23:8080/?action=get&attr=1' \
   -b cookies.txt
 ```
 
-Session cooki will be retrieved from cookies.txt
+Session cookie will be retrieved from cookies.txt
 
 # Get warnings
 

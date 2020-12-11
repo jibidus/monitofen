@@ -1,0 +1,25 @@
+version: '2'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    command: mysqld --default-authentication-plugin=mysql_native_password --skip-mysqlx
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=okovision
+      - MYSQL_USER=okovision
+      - MYSQL_PASSWORD=password
+    ports:
+      - "8082:3306"
+  okovision:
+    image: okovision
+    container_name: okovision
+    build:
+      context: ./
+    ports:
+      - "8080:80"
+    volumes:
+      - "./okovision:/var/www/okovision"
+    links:
+      - mysql
