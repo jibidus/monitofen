@@ -1,0 +1,55 @@
+0;T extérieure
+1;TC mes
+2;TC Ret cons
+3;Fonct brûleur Std/Imp
+4;Blocage
+5;PE1_BR1 
+6;CF1 (Plancher chf) T Dep mes
+7;CF1 (Plancher chf) T Dep cons
+8;CF1 (Plancher chf) T Amb mes.
+9;CF1 (Plancher chf) T Amb Cons
+10;CF1 (Plancher chf) Pompe
+11;CF1 (Plancher chf) VanMel
+12;CF1 (Plancher chf) Etat
+13;CF2 (Radiateur) T Dep mes
+14;CF2 (Radiateur) T Dep cons
+15;CF2 (Radiateur) T Amb mes.
+16;CF2 (Radiateur) T Amb Cons
+17;CF2 (Radiateur) Pompe
+18;CF2 (Radiateur) VanMel
+19;CF2 (Radiateur) Etat
+20;Pompe primaire1 Pompe
+21;PE1 TC mes
+22;PE1 TC Ret cons
+23;PE1 T démarrage pompe
+24;PE1 Niveau de Modulation
+25;PE1 T Flam mes.
+26;PE1 T Flam cons.
+27;PE1 FRT Max
+28;PE1 t marche vis brûleur
+29;PE1 temps pause
+30;PE1 vitesse V comb
+31;PE1 vitesse V fumées
+32;PE1 Mesure
+33;PE1 Consigne
+34;PE1 Etat
+35;PE1 Moteur vis brûleur
+36;PE1 Extraction
+37;PE1 Moteur réserve 1
+38;PE1 Turbine
+39;PE1 Allumeur
+40;PE1 Pompe chaudière
+41;PE1 Cendrier
+42;PE1 Moteur réserve 2
+43;PE1 Electro-vanne
+44;PE1 Moteur ramonage
+45;PE1 Allumeur
+46;PE1 Kap RA
+47;PE1 Kap ZW
+48;PE1 Chaud ex (AK)
+49;PE1 intervalle aspiration
+50;PE1 DigIn1
+51;PE1 DigIn2
+52;Erreur1 
+53;Erreur2 
+54;Erreur3 
