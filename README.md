@@ -23,6 +23,11 @@ Things you may want to cover:
 
 * ...
 
+# TODO
+
+- [ ] Install [Rubocop](https://github.com/rubocop-hq/rubocop)
+- [ ] Study [Sublim plugins](https://mattbrictson.com/sublime-text-3-recommendations)
+
 # Get measures
 
 List available measures:
