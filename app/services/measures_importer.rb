@@ -1,54 +1,57 @@
+# frozen_string_literal: true
+
 require 'nokogumbo'
 require 'csv'
+require 'net/http'
+require 'uri'
 
-HEADER_FILE='titles.csv'
+HEADER_FILE = 'titles.csv'
 
 class MeasuresImporter
-
   def initialize(boiler_url)
     @boiler_url = boiler_url
   end
 
-  def import
-    all_remote.each do |daily_measures|
-      $stdout.sync = true
-      print "import measures from file #{daily_measures[:name]}… "
-      client = HTTPClient.new
-      content = client.get_content(daily_measures[:link])
-      csv = CSV.new(content, col_sep: ';', headers: true)
-      ApplicationRecord.transaction do
-        imported_file = ImportedFile.create!(name: daily_measures[:name])
-        csv.each do |row|
-          day = row[0] # 10.12.2020
-          time = row[1] # 00:03:24
-          date = DateTime.strptime("#{day.strip} #{time.strip}", '%d.%m.%Y %H:%M:%S')
-          puts "#{row.length} metric(s) found"
-          (2..row.length-1).each do |index|
-            metric_name = row.headers[index]
-            value = row[index]
-            if metric_name.nil? && value.nil?
-              # empty column => skip it
-              break
-            end
-            metric = Metric.find_or_create_by!(index: index) do |metric|
-              metric.name = metric_name
-            end
-            value_f = value.gsub(/,/,'.').to_f
-            Measure.create!(date: date, metric: metric, value: value_f, imported_file: imported_file)
-          rescue e
-            puts "Cannot parse following CSV line because or #{e}"
-            puts row
-            puts "continue…"
-          end
-        end
-      end
+  def import_all
+    files = all_measures_files
+    Rails.logger.info "#{files.count} measure file(s) found"
+    files.each do |file|
+      start = Time.current
+      count = import_file(file[:name], file[:link])
+      Rails.logger.info "#{count} measure(s) imported in #{Time.current - start}s"
     end
   end
 
-  def all_remote
-    Nokogiri::HTML5.get("#{@boiler_url}/logfiles/pelletronic/").search('td a').map do |node|
-      {link: 'http://192.168.1.23:8080'+node.attribute('href'), name: node.text}
-    end.select {|file| /\.csv$/ =~ file[:link]}
-    .reject {|file| file[:name] == HEADER_FILE}
+  def all_measures_files
+    all_files = Nokogiri::HTML5.get("#{@boiler_url}/logfiles/pelletronic/").search('td a').map do |node|
+      { link: @boiler_url + node.attribute('href'), name: node.text }
+    end
+
+    all_files.select { |file| /\.csv$/ =~ file[:link] }
+             .reject { |file| file[:name] == HEADER_FILE }
+  end
+
+  def import_file(file_name, link)
+    Rails.logger.info "Import file #{file_name}…"
+    uri = URI(link)
+    content = Net::HTTP.get_response(uri).body
+
+    content = Iconv.conv('UTF-8//IGNORE', 'UTF-8', content)
+    content = content.gsub(/(\n\s*\n)+/, "\n")
+    csv = CSV.new(content, col_sep: ';', headers: true)
+
+    ApplicationRecord.transaction do
+      Importation.destroy_by file_name: file_name
+      importation = Importation.create!(file_name: file_name)
+      csv.each do |row|
+        measure = Measure.new_from_csv(row)
+        measure.importation = importation
+        measure.save!
+      rescue => e
+        raise "Cannot parse row: #{e.inspect}\n#{row}"
+      end
+    end
+    csv.rewind
+    csv.count
   end
 end

@@ -39,7 +39,7 @@ http GET http://192.168.1.23:8080/logfiles/pelletronic/
 Download 1 CSV file:
 
 ```bash
-curl http://192.168.1.23:8080/logfiles/pelletronic/touch_20201027.csv
+curl -C GET http://192.168.1.23:8080/logfiles/pelletronic/touch_20201027.csv
 ```
 
 - First column is date
