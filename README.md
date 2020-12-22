@@ -141,3 +141,8 @@ curl 'http://192.168.1.23:8080/lang/language.cgi' \
   --compressed \
   --insecure
 ```
+
+
+# Known issues
+
+`bundle install` failed in ffi: install `ffi`manually with `gem install ffi -- --disable-system-libffi`
