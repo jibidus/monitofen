@@ -1,2 +1,18 @@
+# Default config:
+# - https://github.com/rubocop-hq/rubocop/blob/master/config/default.yml
+# - rspec: https://github.com/rubocop-hq/rubocop-rspec/blob/master/config/default.yml
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
 AllCops:
-  RunRailsCops: true
+  NewCops: enable
+Style/Documentation:
+  Enabled: false
+  Exclude:
+    - '**/*.gemspec'
+    - '**/*_spec.rb'
+RSpec/DescribeClass:
+  IgnoredMetadata:
+  type:
+    - task
