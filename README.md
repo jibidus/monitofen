@@ -66,7 +66,9 @@ Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).
 
 # TODO
 
-- [ ] PI: schedule file importation
+- [ ] bug: metrics not found (see PI logs)
+- [ ] PI: test schedule file importation
+- [ ] PI: notify in case of error
 - [ ] Install [Rubocop](https://github.com/rubocop-hq/rubocop)
 - [ ] Study [Sublim plugins](https://mattbrictson.com/sublime-text-3-recommendations)
 
