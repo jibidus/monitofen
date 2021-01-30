@@ -59,8 +59,7 @@ bundle install
 
 # TODO
 
-- [ ] PI: start rails as service
-- [ ] PI: install git aliases + oh-my-zsh
+- [ ] PI: schedule file importation
 - [ ] Install [Rubocop](https://github.com/rubocop-hq/rubocop)
 - [ ] Study [Sublim plugins](https://mattbrictson.com/sublime-text-3-recommendations)
 
