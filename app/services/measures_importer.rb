@@ -34,10 +34,10 @@ class MeasuresImporter
   def import_file(file_name, link)
     Rails.logger.info "Import file #{file_name}…"
     uri = URI(link)
-    content = Net::HTTP.get_response(uri).body
-
-    content = Iconv.conv('UTF-8//IGNORE', 'UTF-8', content)
-    content = content.gsub(/(\n\s*\n)+/, "\n")
+    content = Net::HTTP.get_response(uri)
+                       .body
+                       .encode("UTF-8","ISO-8859-1")
+                       .gsub(/(\n\s*\n)+/, "\n")
     csv = CSV.new(content, col_sep: ';', headers: true)
 
     ApplicationRecord.transaction do

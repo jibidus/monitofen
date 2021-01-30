@@ -29,6 +29,6 @@ HTML
   end
 
   def self.stub_file(file, content)
-    WebMock.stub_request(:get, "#{FakeBoiler.url}/logfiles/pelletronic/#{file}").to_return(body: content)
+    WebMock.stub_request(:get, "#{FakeBoiler.url}/logfiles/pelletronic/#{file}").to_return(body: content.encode("ISO-8859-1", "UTF-8"))
   end
 end
