@@ -23,8 +23,44 @@ Things you may want to cover:
 
 * ...
 
+# How to install on Raspberry Pi OS Lite
+
+1. Install dependencies
+
+```shell
+sudo apt-get update
+sudo apt-get install git postgresql postgresql-contrib libpq-dev
+
+createuser <pg_user> -P --interfactive
+
+curl -L https://get.rvm.io | bash -s stable --ruby
+# Note: you may have to fetch a public key (see output in case of error)
+rvm install 2.7.2
+
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+# Setup ssh key to access git repository
+git clone git@github.com:jibidus/monitofen.git
+cd monitofen
+
+echo '# Monifofen config' >> ~/.bashrc
+echo 'export RAILS_ENV=production' >> ~/.bashrc
+echo 'export MONITOFEN_DB_HOST="localhost"' >> ~/.bashrc
+echo 'export MONITOFEN_DB_USERNAME="<pg_user>"' >> ~/.bashrc
+echo 'export MONITOFEN_DB_PASSWORD="<pg_password>"' >> ~/.bashrc
+echo 'export MONITOFEN_DB_NAME="<pg_dbname>"' >> ~/.bashrc
+echo "export SECRET_KEY_BASE=\"$(rails secret)\"" >> ~/.bashrc
+source ~/.bashrc
+
+rails db:setup
+```
+
+bundle install
+
 # TODO
 
+- [ ] PI: start rails as service
+- [ ] PI: install git aliases + oh-my-zsh
 - [ ] Install [Rubocop](https://github.com/rubocop-hq/rubocop)
 - [ ] Study [Sublim plugins](https://mattbrictson.com/sublime-text-3-recommendations)
 
