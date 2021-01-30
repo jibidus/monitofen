@@ -52,10 +52,17 @@ echo 'export MONITOFEN_DB_NAME="<pg_dbname>"' >> ~/.bashrc
 echo "export SECRET_KEY_BASE=\"$(rails secret)\"" >> ~/.bashrc
 source ~/.bashrc
 
+bundle insall
 rails db:setup
 ```
 
-bundle install
+# How to import boiler measures manually?
+
+```shell
+rails measures:fetch[<boiler url>]
+```
+
+Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).
 
 # TODO
 
