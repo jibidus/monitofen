@@ -22,4 +22,9 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV['MONITOFEN_DB_HOST'] %>
+  username: <%= ENV['MONITOFEN_DB_USERNAME'] %>
+  password: <%= ENV['MONITOFEN_DB_PASSWORD'] %>
+  database: <%= ENV['MONITOFEN_DB_NAME'] %>
