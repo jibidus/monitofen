@@ -77,7 +77,6 @@ ActiveRecord::Schema.define(version: 2020_12_13_194744) do
     t.integer "importation_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index "\"date\", \"metric_id\"", name: "index_measures_on_date_and_metric_id", unique: true
     t.index ["date"], name: "index_measures_on_date", unique: true
     t.index ["importation_id"], name: "index_measures_on_importation_id"
     t.index ["measures_id"], name: "index_measures_on_measures_id"

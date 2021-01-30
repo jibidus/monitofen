@@ -57,6 +57,5 @@ class CreateMeasures < ActiveRecord::Migration[6.1]
       t.references :measures, :importation, foreign_key: true
       t.timestamps
     end
-    add_index :measures, [:date, :metric_id], unique: true
   end
 end
