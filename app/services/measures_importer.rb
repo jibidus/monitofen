@@ -40,11 +40,13 @@ class MeasuresImporter
                        .gsub(/(\n\s*\n)+/, "\n")
     csv = CSV.new(content, col_sep: ';', headers: true)
 
+    metrics_by_csv_column = Metric.all_by_csv_column
+
     ApplicationRecord.transaction do
       Importation.destroy_by file_name: file_name
       importation = Importation.create!(file_name: file_name)
       csv.each do |row|
-        measure = Measure.new_from_csv(row)
+        measure = Measure.new_from_csv(row, metrics_by_csv_column)
         measure.importation = importation
         measure.save!
       rescue => e

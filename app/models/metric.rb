@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# column name in CSV => metric label
 CSV_MAPPING = {
   'AT [°C]' => 'T extérieure',
   'KT Ist [°C]' => 'TC mes',
@@ -59,9 +60,8 @@ class Metric < ApplicationRecord
   validates :label, :column_name, presence: true
   validates :column_name, uniqueness: true
 
-  def self.find_by_key(key)
-    return nil unless CSV_MAPPING.key?(key)
-    metric_i18n_name = CSV_MAPPING[key]
-    find_by label: metric_i18n_name
+  def self.all_by_csv_column()
+    all_metrics_by_label = Hash[self.all.collect { |metric| [metric.label, metric] } ]
+    CSV_MAPPING.transform_values { |label| all_metrics_by_label[label]}
   end
 end
