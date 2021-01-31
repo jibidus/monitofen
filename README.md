@@ -66,7 +66,7 @@ Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).
 
 # TODO
 
-- [ ] bug: metrics not found (see PI logs)
+- [ ] perf: cache Metric.find_by_key
 - [ ] PI: test schedule file importation
 - [ ] PI: notify in case of error
 - [ ] Install [Rubocop](https://github.com/rubocop-hq/rubocop)
