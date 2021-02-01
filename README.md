@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/jibidus/monitofen.svg?branch=main)](https://travis-ci.com/jibidus/monitofen)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
