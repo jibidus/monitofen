@@ -1,5 +1,6 @@
 test:
-	bundle exec guard
-
-guard:
 	bundle exec rspec
+
+import:
+	rails measures:fetch[$MONITOFEN_BOILER_URL]
+
