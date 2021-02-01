@@ -25,35 +25,74 @@ Things you may want to cover:
 
 # How to install on Raspberry Pi OS Lite
 
+0. Setup Raspberry
+
+```bash
+# Generate ssh key
+ssh-keygen -t ed25519 -C "your_email@example.com"
+# Copy public key in clipboard
+cat ~/.ssh/<public key> | pbcopy
+
+# password: raspberry
+ssh -o PubkeyAuthentication=no pi@192.168.1.XXX
+# Start ssh server on startup in section "Interface Options"
+sudo raspi-config
+mkdir ~/.ssh
+chmod 700 ~/.ssh
+# Add public key from clipboard
+vi ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+```
+
 1. Install dependencies
 
 ```shell
 sudo apt-get update
+sudo apt-get full-upgrade
 sudo apt-get install git postgresql postgresql-contrib libpq-dev
 
-createuser <pg_user> -P --interfactive
+sudo su - postgtes
+createuser pi -P --interactive
 
-curl -L https://get.rvm.io | bash -s stable --ruby
 # Note: you may have to fetch a public key (see output in case of error)
-rvm install 2.7.2
+curl -L https://get.rvm.io | bash -s stable --ruby
+source ~/.bashrc
 
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 # Setup ssh key to access git repository
+ssh-keygen -t ed25519 -C "your_email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/<ssh pub key>
+
+cd ~/
 git clone git@github.com:jibidus/monitofen.git
+
 cd monitofen
+rvm install ruby-2.7.2
+bundle insall
 
 echo '# Monifofen config' >> ~/.bashrc
 echo 'export RAILS_ENV=production' >> ~/.bashrc
 echo 'export MONITOFEN_DB_HOST="localhost"' >> ~/.bashrc
-echo 'export MONITOFEN_DB_USERNAME="<pg_user>"' >> ~/.bashrc
+echo 'export MONITOFEN_DB_USERNAME="pi"' >> ~/.bashrc
 echo 'export MONITOFEN_DB_PASSWORD="<pg_password>"' >> ~/.bashrc
-echo 'export MONITOFEN_DB_NAME="<pg_dbname>"' >> ~/.bashrc
+echo 'export MONITOFEN_DB_NAME="monitofen"' >> ~/.bashrc
 echo "export SECRET_KEY_BASE=\"$(rails secret)\"" >> ~/.bashrc
 source ~/.bashrc
+```
 
-bundle insall
+2. Init db
+
+```bash
+cd ~/monitofen
 rails db:setup
+```
+
+3. Setup crontab (with `crontab -e`):
+
+```
+0 5 * * 1,3,5 cd ~/monitofen && rails measures:fetch[http://192.168.1.XXX:YYYY]
 ```
 
 # How to import boiler measures manually?
@@ -64,9 +103,14 @@ rails measures:fetch[<boiler url>]
 
 Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).
 
+# Where to see logs?
+
+```
+~/monitofen/logs/production.log
+```
+
 # TODO
 
-- [ ] perf: cache Metric.find_by_key
 - [ ] PI: test schedule file importation
 - [ ] PI: notify in case of error
 - [ ] Install [Rubocop](https://github.com/rubocop-hq/rubocop)
