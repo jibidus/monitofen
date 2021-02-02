@@ -113,7 +113,7 @@ RSpec.describe 'measures:fetch', type: :task do
       task.execute from: FakeBoiler.url
     end
 
-    it { expect(Importation.exists?(importation.id)).to be_falsey }
+    it { expect(Importation).not_to exist(importation.id) }
   end
 
   context 'when a measure file contains empty line' do

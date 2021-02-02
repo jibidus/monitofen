@@ -9,6 +9,4 @@ class Measure < ApplicationRecord
     metric = Metric.find_by!(label: metric_label)
     measure.send(metric.column_name)
   end
-
-
 end

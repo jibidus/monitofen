@@ -7,6 +7,13 @@ require:
   - rubocop-rspec
 AllCops:
   NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bin/{rails,rake}'
+    - !ruby/regexp /old_and_unused\.rb$/
 Style/Documentation:
   Enabled: false
   Exclude:
@@ -16,3 +23,5 @@ RSpec/DescribeClass:
   IgnoredMetadata:
   type:
     - task
+Style/StringLiterals:
+  Enabled: false

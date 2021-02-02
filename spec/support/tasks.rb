@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rake"
 
 # Task names should be used in the top-level describe, with an optional
@@ -18,14 +20,14 @@ module TaskExampleGroup
     let(:tasks) { Rake::Task }
 
     # Make the Rake task available as `task` in your examples:
+    # rubocop:disable RSpec/LeadingSubject
     subject(:task) { tasks[task_name] }
   end
 end
 
 RSpec.configure do |config|
-
   # Tag Rake specs with `:task` metadata or put them in the spec/tasks dir
-  config.define_derived_metadata(:file_path => %r{/spec/tasks/}) do |metadata|
+  config.define_derived_metadata(file_path: %r{/spec/tasks/}) do |metadata|
     metadata[:type] = :task
   end
 

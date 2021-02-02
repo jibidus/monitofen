@@ -103,7 +103,7 @@ class MeasuresImporter
         measure = import_row(row)
         measure.importation = importation
         measure.save!
-      rescue => e
+      rescue StandardError => e
         raise "Cannot parse row: #{e.inspect}\n#{row}"
       end
     end
@@ -138,10 +138,9 @@ class MeasuresImporter
 
   def metrics_by_csv_column
     if @metrics_by_csv_column.nil?
-      all_metrics_by_label = Hash[Metric.all.collect { |metric| [metric.label, metric] }]
+      all_metrics_by_label = Metric.all.index_by(&:label)
       @metrics_by_csv_column = CSV_MAPPING.transform_values { |label| all_metrics_by_label[label] }
     end
     @metrics_by_csv_column
   end
-
 end
