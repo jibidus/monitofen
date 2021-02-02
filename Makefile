@@ -11,3 +11,5 @@ security:
 import:
 	rails measures:fetch[$MONITOFEN_BOILER_URL]
 
+deploy-crontab:
+	bundle exec whenever --update-crontab

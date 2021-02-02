@@ -36,6 +36,9 @@ gem 'pg'
 # Pretty prints Ruby objects in colors
 gem "awesome_print", "~> 1.8"
 
+# Create and deploy cron jobs
+gem "whenever", "~> 1.0"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

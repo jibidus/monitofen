@@ -3,11 +3,12 @@
 namespace :measures do
   desc "Fetch new measures from boiler and store it in database"
   task :fetch, [:from] => [:environment] do |_, args|
-    from = args[:from]
-    # rubocop:disable Style/RaiseArgs
-    raise Rake::TaskArgumentError.new('No "from" parameter provided') if from.blank?
+    boiler_base_url = args[:from] || ENV['MONITOFEN_BOILER_BASE_URL']
 
-    MeasuresImporter.new(from).import_all
+    # rubocop:disable Style/RaiseArgs
+    raise Rake::TaskArgumentError.new('Mandatory environment variable "MONITOFEN_BOILER_BASE_URL" not defined') if boiler_base_url.blank?
+
+    MeasuresImporter.new(boiler_base_url).import_all
     Rails.logger.info "job finished."
   end
 end

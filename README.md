@@ -80,6 +80,7 @@ echo 'export MONITOFEN_DB_HOST="localhost"' >> ~/.bashrc
 echo 'export MONITOFEN_DB_USERNAME="pi"' >> ~/.bashrc
 echo 'export MONITOFEN_DB_PASSWORD="<pg_password>"' >> ~/.bashrc
 echo 'export MONITOFEN_DB_NAME="monitofen"' >> ~/.bashrc
+echo 'export MONITOFEN_BOILER_BASE_URL="<boiler base url (ex:http://192.168.1.2:80)>"' >> ~/.bashrc
 echo "export SECRET_KEY_BASE=\"$(rails secret)\"" >> ~/.bashrc
 source ~/.bashrc
 ```
@@ -91,16 +92,16 @@ cd ~/monitofen
 rails db:setup
 ```
 
-3. Setup crontab (with `crontab -e`):
+3. Setup crontab
 
 ```
-0 5 * * 1,3,5 cd ~/monitofen && rails measures:fetch[http://192.168.1.XXX:YYYY]
+make deploy-crontab
 ```
 
 # How to import boiler measures manually?
 
 ```shell
-rails measures:fetch[<boiler url>]
+rails measures:fetch
 ```
 
 Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).
@@ -122,8 +123,6 @@ ap Metric.take
 # TODO
 
 - [ ] PI: test schedule file importation
-- [ ] Gems: add and configure following gems:
-  * Whenever
 - [ ] PI: notify in case of error
 - [ ] Install [Rubocop](https://github.com/rubocop-hq/rubocop)
 - [ ] Study [Sublim plugins](https://mattbrictson.com/sublime-text-3-recommendations)
