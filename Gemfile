@@ -53,6 +53,7 @@ group :development do
   gem 'guard-rspec', require: false
   gem 'spring'
   gem "rails_best_practices", "~> 1.20"
+  gem "bundle-audit", "~> 0.1.0"
 end
 
 group :test do

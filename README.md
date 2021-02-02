@@ -115,8 +115,6 @@ Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).
 
 - [ ] PI: test schedule file importation
 - [ ] Gems: add and configure following gems:
-  * Brakeman
-  * Bundler-audit
   * Awesome_print
   * Whenever
 - [ ] PI: notify in case of error
