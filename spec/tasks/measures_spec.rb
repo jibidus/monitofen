@@ -61,7 +61,9 @@ RSpec.describe 'measures:fetch', type: :task do
     it { expect(Measure.count).to eq(2) }
 
     it 'creates measures with values from CSV' do
-      value = Measure.find_value!(file_date, CSV_MAPPING['KT Ist [°C]'])
+      measure = Measure.find_by!(date: file_date)
+      metric = Metric.find_by!(label: CSV_MAPPING['KT Ist [°C]'])
+      value = measure.send(metric.column_name)
       expect(value).to eq(39.6)
     end
 
