@@ -105,6 +105,14 @@ rails measures:fetch[<boiler url>]
 
 Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).
 
+# How to pretty print object in rails console?
+
+Use [ap](https://github.com/awesome-print/awesome_print):
+
+```ruby
+ap Metric.take
+```
+
 # Where to see logs?
 
 ```
@@ -115,7 +123,6 @@ Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).
 
 - [ ] PI: test schedule file importation
 - [ ] Gems: add and configure following gems:
-  * Awesome_print
   * Whenever
 - [ ] PI: notify in case of error
 - [ ] Install [Rubocop](https://github.com/rubocop-hq/rubocop)
