@@ -124,8 +124,7 @@ ap Metric.take
 
 - [ ] PI: test schedule file importation
 - [ ] PI: notify in case of error
-- [ ] Install [Rubocop](https://github.com/rubocop-hq/rubocop)
-- [ ] Study [Sublim plugins](https://mattbrictson.com/sublime-text-3-recommendations)
+- [ ] Automate deployment
 
 # Get measures
 
