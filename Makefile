@@ -9,7 +9,7 @@ security:
 	bundle exec bundle-audit
 
 import:
-	rails measures:fetch[$MONITOFEN_BOILER_URL]
+	rails measures:fetch
 
 deploy-crontab:
 	bundle exec whenever --update-crontab
