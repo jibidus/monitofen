@@ -4,6 +4,7 @@ require 'nokogumbo'
 require 'csv'
 require 'net/http'
 require 'uri'
+require 'set'
 
 HEADER_FILE = 'titles.csv'
 
@@ -66,6 +67,7 @@ CSV_MAPPING = {
 class MeasuresImporter
   def initialize(boiler_url)
     @boiler_url = boiler_url
+    @header_errors = Set[]
   end
 
   def import_all
@@ -126,7 +128,7 @@ class MeasuresImporter
 
       metric_key = row.headers[index]
       unless metrics_by_csv_column.include? metric_key
-        Rails.logger.warn "Unknown metric '#{metric_key}'"
+        add_header_error "Unknown metric '#{metric_key}'"
         next
       end
 
@@ -134,6 +136,10 @@ class MeasuresImporter
       measure.write_attribute(metric.column_name, value_f)
     end
     measure
+  end
+
+  def add_header_error(msg)
+    Rails.logger.warn(msg) unless @header_errors.add?(msg).nil?
   end
 
   def metrics_by_csv_column

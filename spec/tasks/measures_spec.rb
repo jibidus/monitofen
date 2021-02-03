@@ -143,13 +143,14 @@ RSpec.describe 'measures:fetch', type: :task do
       FakeBoiler.stub_file(file_name, <<~CSV)
         Datum ;Zeit ;AT [°C];Unknown column;
         10.12.2020;00:03:24;2,4;20;
+        10.12.2020;00:04:24;1,2;19;
       CSV
 
       task.execute from: FakeBoiler.url
     end
 
-    it { expect(Measure.count).to eq(1) }
+    it { expect(Measure.count).to eq(2) }
 
-    it { expect(Rails.logger).to have_received(:warn).with(/Unknown column/) }
+    it { expect(Rails.logger).to have_received(:warn).with(/Unknown column/).once }
   end
 end
