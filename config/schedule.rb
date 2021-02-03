@@ -20,5 +20,5 @@
 # Learn more: http://github.com/javan/whenever
 
 every 2.days, at: '5:00 am' do
-  runner "MeasuresImporter.new(ENV['MONITOFEN_BOILER_BASE_URL']).import_all"
+  runner "MeasuresImporter.new.import_all"
 end

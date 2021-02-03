@@ -10,7 +10,7 @@ RSpec.describe 'measures:fetch', type: :task do
   end
 
   context 'when no parameter provided' do
-    it { expect { task.execute }.to raise_error(Rake::TaskArgumentError) }
+    it { expect { task.execute }.to raise_error }
   end
 
   context 'when no file is available' do

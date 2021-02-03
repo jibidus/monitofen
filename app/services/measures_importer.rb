@@ -66,7 +66,8 @@ CSV_MAPPING = {
 
 class MeasuresImporter
   def initialize(boiler_url)
-    @boiler_url = boiler_url
+    @boiler_url = boiler_url || ENV['MONITOFEN_BOILER_BASE_URL']
+    raise 'Mandatory variable "MONITOFEN_BOILER_BASE_URL" not defined' if @boiler_url.blank?
     @header_errors = Set[]
   end
 
