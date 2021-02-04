@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'measures_importer'
 
-RSpec.describe 'measures:fetch', type: :task do
+RSpec.describe 'measures:import', type: :task do
   before do
     allow(Rails.logger).to receive(:info)
     allow(Rails.logger).to receive(:warn)

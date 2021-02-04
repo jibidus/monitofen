@@ -12,7 +12,7 @@ security: ## Check security alerts in gems
 	bundle exec bundle-audit
 
 import: ## Import measures from boiler
-	rails measures:fetch
+	rails measures:import
 
 deploy-crontab: ## Deploy scheduled job to crontab
 	bundle exec whenever --update-crontab

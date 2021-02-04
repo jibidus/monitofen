@@ -89,7 +89,7 @@ make deploy-crontab
 # How to import boiler measures manually?
 
 ```shell
-rails measures:fetch[<boiler url>]
+rails measures:import[<boiler url>]
 ```
 
 Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).

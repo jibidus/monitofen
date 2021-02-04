@@ -20,5 +20,5 @@
 # Learn more: http://github.com/javan/whenever
 
 every 2.days, at: '5:00 am' do
-  rake "measures:fetch"
+  rake "measures:import"
 end

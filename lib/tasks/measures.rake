@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 namespace :measures do
-  desc "Fetch new measures from boiler and store it in database"
-  task :fetch, [:from] => [:environment] do |_, args|
+  desc "Import new measures from boiler and store it in database"
+  task :import, [:from] => [:environment] do |_, args|
     boiler_base_url = args[:from] || ENV['MONITOFEN_BOILER_BASE_URL']
 
     # rubocop:disable Style/RaiseArgs
