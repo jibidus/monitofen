@@ -5,9 +5,15 @@ class FakeBoiler
     'http://192.168.1.23:8080'
   end
 
-  def self.stub_files(files = [])
+  def self.stub_files(files = []) # rubocop:disable Metrics/MethodLength
     html = files.map do |file|
-      "<tr><td><a href=\"/logfiles/pelletronic/#{file}\">#{file}</a></td><td> 09-Dec-2020 00:00</td><td>  278.7k</td></tr>"
+      <<~HTML
+        <tr>
+          <td><a href=\"/logfiles/pelletronic/#{file}\">#{file}</a></td>
+          <td> 09-Dec-2020 00:00</td>
+          <td>  278.7k</td>
+        </tr>
+      HTML
     end.join('\n')
 
     body = <<~HTML

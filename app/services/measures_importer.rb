@@ -91,51 +91,48 @@ class MeasuresImporter
 
   def import_file(file_name, link)
     Rails.logger.info "Import file #{file_name}…"
-    uri = URI(link)
-    content = Net::HTTP.get_response(uri)
-                       .body
-                       .encode("UTF-8", "ISO-8859-1")
-                       .gsub(/(\n\s*\n)+/, "\n")
-    csv = CSV.new(content, col_sep: ';', headers: true)
-
     ApplicationRecord.transaction do
       Importation.destroy_by file_name: file_name
       importation = Importation.create!(file_name: file_name)
-      csv.each do |row|
-        measure = import_row(row)
+      CsvMeasures.download(link).each_row do |row|
+        measure = parse_row(row)
         measure.importation = importation
         measure.save!
-      rescue StandardError => e
-        raise "Cannot parse row: #{e.inspect}\n#{row}"
       end
     end
-    csv.rewind
-    csv.count
   end
 
-  def import_row(row)
-    day = row[0] # ex: 10.12.2020
-    time = row[1] # ex: 00:03:24
-    date = DateTime.strptime("#{day.strip} #{time.strip}", '%d.%m.%Y %H:%M:%S')
-
+  def parse_row(row)
+    date = parse_date(row)
     measure = Measure.new(date: date)
 
-    (2..row.length - 1).each do |index|
-      value = row[index]
-      next if value.blank?
-
-      value_f = value.gsub(/,/, '.').to_f
-
-      metric_key = row.headers[index]
-      unless metrics_by_csv_column.include? metric_key
-        add_header_error "Unknown metric '#{metric_key}'"
+    parse_measures(row) do |column_name, value|
+      unless metrics_by_csv_column.include? column_name
+        add_header_error "Unknown metric '#{column_name}'"
         next
       end
 
-      metric = metrics_by_csv_column[metric_key]
-      measure.write_attribute(metric.column_name, value_f)
+      metric = metrics_by_csv_column[column_name]
+      measure.write_attribute(metric.column_name, value)
     end
     measure
+  end
+
+  def parse_date(row)
+    day = row[0] # ex: 10.12.2020
+    time = row[1] # ex: 00:03:24
+    DateTime.strptime("#{day.strip} #{time.strip}", '%d.%m.%Y %H:%M:%S')
+  end
+
+  def parse_measures(row)
+    (2..row.length - 1).each do |index|
+      str_value = row[index]
+      next if str_value.blank?
+
+      value = str_value.gsub(/,/, '.').to_f
+      column_name = row.headers[index]
+      yield column_name, value
+    end
   end
 
   def add_header_error(msg)

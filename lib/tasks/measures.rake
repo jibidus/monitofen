@@ -5,8 +5,9 @@ namespace :measures do
   task :import, [:from] => [:environment] do |_, args|
     boiler_base_url = args[:from] || ENV['MONITOFEN_BOILER_BASE_URL']
 
-    # rubocop:disable Style/RaiseArgs
-    raise Rake::TaskArgumentError.new('Mandatory environment variable "MONITOFEN_BOILER_BASE_URL" not defined') if boiler_base_url.blank?
+    if boiler_base_url.blank?
+      raise Rake::TaskArgumentError.new('Mandatory environment variable "MONITOFEN_BOILER_BASE_URL" not defined') # rubocop:disable Style/RaiseArgs
+    end
 
     MeasuresImporter.new(boiler_base_url).import_all
     Rails.logger.info "job finished."

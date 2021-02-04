@@ -13,6 +13,8 @@ AllCops:
     - 'config/**/*'
     - 'script/**/*'
     - 'bin/{rails,rake}'
+    - 'node_modules/**/*'
+    - 'Guardfile'
     - !ruby/regexp /old_and_unused\.rb$/
 Style/Documentation:
   Enabled: false
@@ -21,7 +23,10 @@ Style/Documentation:
     - '**/*_spec.rb'
 RSpec/DescribeClass:
   IgnoredMetadata:
-  type:
-    - task
+    type:
+      - task
 Style/StringLiterals:
   Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - '**/*_spec.rb'

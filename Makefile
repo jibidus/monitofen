@@ -8,6 +8,9 @@ lint: ## Check file format, smell code, conventions…
 	bundle exec rubocop
 	bundle exec rails_best_practices .
 
+lint-fix: ## Fix violations when possible
+	bundle exec rubocop -a
+
 security: ## Check security alerts in gems
 	bundle exec bundle-audit
 
