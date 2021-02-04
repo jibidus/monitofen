@@ -1,31 +1,19 @@
 [![Build Status](https://travis-ci.com/jibidus/monitofen.svg?branch=main)](https://travis-ci.com/jibidus/monitofen)
 
-# README
+:warning: Under development
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# What is monitofen?
 
-Things you may want to cover:
+Monitofen is used to **monitor** measures of an **Okofen boiler**.
+Measures are imported daily and are exposed through a webapp.
 
-* Ruby version
-  yarn add vue-turbolinks
-* System dependencies
+# Why not using [Okovision](http://okovision.dronek.com)?
 
-* Configuration
+Because I did not manage to install it in a Docker container, and when I tried to contribute, I was discouraged by the lack of automated tests (among others).
 
-* Database creation
+It is unfortunate, since `Okovision` brings a lot of interesting features.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-# How to install on Raspberry Pi OS Lite
+# How to install on Raspberry Pi OS Lite?
 
 0. Setup Raspberry
 
@@ -101,10 +89,12 @@ make deploy-crontab
 # How to import boiler measures manually?
 
 ```shell
-rails measures:fetch
+rails measures:fetch[<boiler url>]
 ```
 
 Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).
+
+Note: `[<boiler url>]` can be removed for the benefit of the `MONITOFEN_BOILER_BASE_URL` env var.
 
 # How to pretty print object in rails console?
 
@@ -114,7 +104,9 @@ Use [ap](https://github.com/awesome-print/awesome_print):
 ap Metric.take
 ```
 
-# Where to see logs?
+# Where are logs?
+
+Logs are in the usual location for a rail application:
 
 ```
 ~/monitofen/logs/production.log
