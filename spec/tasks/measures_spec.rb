@@ -93,6 +93,23 @@ RSpec.describe 'measures:import', type: :task do
     it { expect(Importation.count).to eq(2) }
   end
 
+  context 'when a measure files is available for today' do
+    let(:file_name) { "touch_#{Time.zone.today.strftime('%Y%m%d')}.csv" }
+
+    before do
+      FakeBoiler.stub_files([file_name])
+      task.execute from: FakeBoiler.url
+    end
+
+    it { expect(Importation.count).to eq(0) }
+
+    it do
+      expect(Rails.logger).to have_received(:info)
+        .with(/File #{file_name} skipped: partial content, today's measures/)
+        .once
+    end
+  end
+
   context 'when measure file already imported' do
     let(:file_date) { DateTime.new(2020, 12, 8, 20, 10, 0) }
     let(:file_name) { "touch_#{file_date.strftime('%Y%m%d')}.csv" }

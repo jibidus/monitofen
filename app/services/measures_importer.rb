@@ -74,10 +74,22 @@ class MeasuresImporter
     files = all_measures_files
     Rails.logger.info "#{files.count} measure file(s) found"
     files.each do |file|
-      start = Time.current
-      count = import_file(file[:name], file[:link])
-      Rails.logger.info "#{count} measure(s) imported in #{Time.current - start}s"
+      if file_date(file[:name]) == Time.zone.today
+        Rails.logger.info "File #{file[:name]} skipped: partial content, today's measures"
+        next
+      end
+      bench { import_file(file[:name], file[:link]) }
     end
+  end
+
+  def bench
+    start = Time.current
+    count = yield
+    Rails.logger.info "#{count} measure(s) imported in #{Time.current - start}s"
+  end
+
+  def file_date(file)
+    Date.parse(file[/\d{8}/, 0])
   end
 
   def all_measures_files
