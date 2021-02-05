@@ -78,6 +78,10 @@ class MeasuresImporter
         Rails.logger.info "File #{file[:name]} skipped: partial content, today's measures"
         next
       end
+      if Importation.exists?(file_name: file[:name])
+        Rails.logger.info "File #{file[:name]} skipped: already imported"
+        next
+      end
       bench { import_file(file[:name], file[:link]) }
     end
   end
@@ -104,7 +108,6 @@ class MeasuresImporter
   def import_file(file_name, link)
     Rails.logger.info "Import file #{file_name}…"
     ApplicationRecord.transaction do
-      Importation.destroy_by file_name: file_name
       importation = Importation.create!(file_name: file_name)
       CsvMeasures.download(link).each_row do |row|
         measure = parse_row(row)

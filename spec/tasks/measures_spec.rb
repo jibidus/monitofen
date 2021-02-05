@@ -72,6 +72,18 @@ RSpec.describe 'measures:import', type: :task do
     it { expect(Rails.logger).to have_received(:info).with(/2 measure\(s\) imported/) }
   end
 
+  context 'when measure file was already imported' do
+    let(:file_name) { "touch_20210214.csv" }
+
+    before do
+      FakeBoiler.stub_files([file_name])
+      Importation.create! file_name: file_name
+      task.execute from: FakeBoiler.url
+    end
+
+    it { expect(Importation.count).to eq(1) }
+  end
+
   context 'when many measure files are available' do
     let(:file_name1) { 'touch_20201208.csv' }
     let(:file_name2) { 'touch_20201209.csv' }
@@ -132,7 +144,11 @@ RSpec.describe 'measures:import', type: :task do
       task.execute from: FakeBoiler.url
     end
 
-    it { expect(Importation).not_to exist(importation.id) }
+    it do
+      expect(Rails.logger).to have_received(:info)
+        .with(/File #{file_name} skipped: already imported/)
+        .once
+    end
   end
 
   context 'when a measure file contains empty line' do
