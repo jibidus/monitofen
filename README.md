@@ -62,15 +62,18 @@ cd monitofen
 rvm install ruby-2.7.2
 bundle insall
 
-echo '# Monifofen config' >> ~/.bashrc
-echo 'export RAILS_ENV=production' >> ~/.bashrc
-echo 'export MONITOFEN_DB_HOST="localhost"' >> ~/.bashrc
-echo 'export MONITOFEN_DB_USERNAME="pi"' >> ~/.bashrc
-echo 'export MONITOFEN_DB_PASSWORD="<pg_password>"' >> ~/.bashrc
-echo 'export MONITOFEN_DB_NAME="monitofen"' >> ~/.bashrc
-echo 'export MONITOFEN_BOILER_BASE_URL="<boiler base url (ex:http://192.168.1.2:80)>"' >> ~/.bashrc
-echo "export SECRET_KEY_BASE=\"$(rails secret)\"" >> ~/.bashrc
-source ~/.bashrc
+echo '# Monifofen config' >> ~/.monitofen_profile
+echo 'export RAILS_ENV=production' >> ~/.monitofen_profile
+echo 'export MONITOFEN_DB_HOST="localhost"' >> ~/.monitofen_profile
+echo 'export MONITOFEN_DB_USERNAME="pi"' >> ~/.monitofen_profile
+echo 'export MONITOFEN_DB_PASSWORD="<pg_password>"' >> ~/.monitofen_profile
+echo 'export MONITOFEN_DB_NAME="monitofen"' >> ~/.monitofen_profile
+echo 'export MONITOFEN_BOILER_BASE_URL="<boiler base url (ex:http://192.168.1.2:80)>"' >> ~/.monitofen_profile
+echo "export SECRET_KEY_BASE=\"$(rails secret)\"" >> ~/.monitofen_profile
+
+echo "[[ -r ~/.monitofen_profile ]] && . ~/.monitofen_profile" >> ~/.bashrc
+echo "[[ -r ~/.monitofen_profile ]] && . ~/.monitofen_profile" >> ~/.bash_profile
+source ~/.monitofen_profile
 ```
 
 2. Init db
