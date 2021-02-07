@@ -332,7 +332,7 @@ DEPENDENCIES
   require_all (~> 3.0)
   rspec-rails (~> 4.0.1)
   rubocop
-  rubocop-performance
+  rubocop-performance (~> 1.9)
   rubocop-rails
   rubocop-rspec
   sass-rails (>= 6)
