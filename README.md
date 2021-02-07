@@ -119,4 +119,5 @@ Logs are in the usual location for a rail application:
 
 - [ ] PI: test schedule file importation
 - [ ] PI: notify in case of error
+- [ ] import: force importation of a given file
 - [ ] Automate deployment
