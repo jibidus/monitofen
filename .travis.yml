@@ -1,4 +1,4 @@
 language: ruby
 rvm:
   - 2.7.2
-script: make test security
+script: make test lint security
