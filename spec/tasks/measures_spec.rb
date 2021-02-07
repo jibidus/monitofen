@@ -179,6 +179,27 @@ RSpec.describe 'measures:import', type: :task do
 
     it { expect(Rails.logger).to have_received(:warn).with(/Unknown metric column 'Unknown'/).once }
   end
+
+  context 'when many measure files contains unknown columns' do
+    let(:file_name1) { 'touch_20201208.csv' }
+    let(:file_name2) { 'touch_20201209.csv' }
+
+    before do
+      FakeBoiler.stub_files([file_name1, file_name2])
+      FakeBoiler.stub_file(file_name1, <<~CSV)
+        Datum ;Zeit ;AT [°C];Unknown;
+        08.12.2020;00:03:24;2,4;20;
+      CSV
+      FakeBoiler.stub_file(file_name2, <<~CSV)
+        Datum ;Zeit ;AT [°C];Unknown;
+        09.12.2020;00:03:24;2,4;20;
+      CSV
+
+      task.execute from: FakeBoiler.url
+    end
+
+    it { expect(Rails.logger).to have_received(:warn).with(/Unknown metric column 'Unknown'/).twice }
+  end
 end
 
 # TODO: test row line is logged in case of error
