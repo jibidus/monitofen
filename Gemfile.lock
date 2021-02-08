@@ -97,6 +97,11 @@ GEM
     diff-lcs (1.4.4)
     erubi (1.10.0)
     erubis (2.7.0)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
     ffi (1.13.1)
     formatador (0.2.5)
     globalid (0.4.2)
@@ -317,6 +322,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   database_cleaner-active_record
+  factory_bot_rails (~> 6.1)
   guard-rspec
   jbuilder (~> 2.7)
   listen (~> 3.3)
