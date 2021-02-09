@@ -11,7 +11,7 @@ RSpec.describe "Measures", type: :request do
 
   describe "when some measures" do
     before do
-      create :measure, metric_1: 1.2
+      create :measure, metric_1: 1.2 # rubocop:disable Naming/VariableNumber
       get '/measures'
     end
 
