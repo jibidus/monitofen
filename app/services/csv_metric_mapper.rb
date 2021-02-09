@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # csv_column name in CSV => metric label
 MAPPING = {
   'AT [°C]' => 'T extérieure',

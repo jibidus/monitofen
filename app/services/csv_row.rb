@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CsvRow
   def initialize(row, metric_mapper, errors)
     @row = row

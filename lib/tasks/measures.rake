@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :measures do
   desc "Import new measures from boiler and store it in database"
   task :import, [:from] => [:environment] do |_, args|

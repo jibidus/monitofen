@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 FactoryBot.define do # rubocop:disable Metrics/BlockLength
   factory :measure do # rubocop:disable Metrics/BlockLength
     date { Time.zone.now }

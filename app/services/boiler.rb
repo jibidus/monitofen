@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Boiler
   def initialize(base_url)
     @base_url = base_url

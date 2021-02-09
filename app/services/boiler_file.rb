@@ -1,8 +1,6 @@
-# frozen_string_literal: true
-
 require 'net/http'
 
-HEADER_FILE = 'titles.csv'
+HEADER_FILE = 'titles.csv'.freeze
 
 class BoilerFile
   attr_reader :name, :url

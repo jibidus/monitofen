@@ -30,3 +30,5 @@ Style/StringLiterals:
 Metrics/BlockLength:
   Exclude:
     - '**/*_spec.rb'
+Style/FrozenStringLiteralComment:
+  Enabled: false

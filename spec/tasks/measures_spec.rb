@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 require 'measures_importer'
 require 'csv_metric_mapper'

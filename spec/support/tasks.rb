@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "rake"
 
 # Task names should be used in the top-level describe, with an optional

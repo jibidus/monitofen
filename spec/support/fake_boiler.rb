@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class FakeBoiler
   def self.url
     'http://192.168.1.23:8080'

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Metric < ApplicationRecord
   validates :label, :column_name, presence: true
   validates :column_name, uniqueness: true
