@@ -17,5 +17,8 @@ security: ## Check security alerts in gems
 import: ## Import measures from boiler
 	rails measures:import
 
-deploy-crontab: ## Deploy scheduled job to crontab
+deploy: ## Deploy last version locally
+	git pull --rebase
+	bundle install
 	bundle exec whenever --update-crontab
+	rails db:migrate
