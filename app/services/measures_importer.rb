@@ -14,25 +14,22 @@ class MeasuresImporter
          .select(&:complete?)
          .reject(&:imported?)
          .each do |file|
-      bench { import!(file) }
+      Importation.import(file.name) do |importation|
+        import!(file, importation)
+      end
     end
   end
 
   private
 
-  def import!(file)
+  def import!(file, importation)
     Rails.logger.info "Import file #{file.name}…"
-    ApplicationRecord.transaction do
-      importation = Importation.create!(file_name: file.name)
+    start = Time.current
+    count = ApplicationRecord.transaction do
       file.csv_content.import! do |measure|
         measure.importation = importation
       end
     end
-  end
-
-  def bench
-    start = Time.current
-    count = yield
     Rails.logger.info "#{count} measure(s) imported in #{Time.current - start}s"
   end
 end

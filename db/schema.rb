@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_13_194744) do
+ActiveRecord::Schema.define(version: 2021_02_11_194936) do
 
   create_table "importations", force: :cascade do |t|
     t.string "file_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["file_name"], name: "index_importations_on_file_name", unique: true
+    t.string "status", null: false
   end
 
   create_table "measures", force: :cascade do |t|

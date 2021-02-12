@@ -77,3 +77,5 @@ end
 gem "nokogumbo", "~> 2.0"
 
 gem "require_all", "~> 3.0"
+
+gem 'sendgrid-ruby'
