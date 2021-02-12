@@ -69,6 +69,7 @@ echo 'export MONITOFEN_DB_USERNAME="pi"' >> ~/.monitofen_profile
 echo 'export MONITOFEN_DB_PASSWORD="<pg_password>"' >> ~/.monitofen_profile
 echo 'export MONITOFEN_DB_NAME="monitofen"' >> ~/.monitofen_profile
 echo 'export MONITOFEN_BOILER_BASE_URL="<boiler base url (ex:http://192.168.1.2:80)>"' >> ~/.monitofen_profile
+echo 'export SENDGRID_API_KEY="<send grid API key>"' >> ~/.monitofen_profile
 echo "export SECRET_KEY_BASE=\"$(rails secret)\"" >> ~/.monitofen_profile
 
 echo "[[ -r ~/.monitofen_profile ]] && . ~/.monitofen_profile" >> ~/.bashrc
@@ -121,3 +122,4 @@ Logs are in the usual location for a rail application:
 - [ ] PI: notify in case of error
 - [ ] import: force importation of a given file
 - [ ] Automate deployment
+- [ ] Use https://github.com/djezzzl/factory_trace

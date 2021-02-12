@@ -23,7 +23,7 @@ class BoilerFile
   end
 
   def imported?
-    Importation.exists? file_name: @name
+    Importation.exists? file_name: @name, status: :successful
   end
 
   def content

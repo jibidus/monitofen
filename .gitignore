@@ -46,3 +46,5 @@ tmp/
 # Jetbrains IDE
 .idea/
 
+# Sendgrid config (email api)
+sendgrid.env

@@ -1,0 +1,5 @@
+<% if @importation.successful? %>
+  File <%= @importation.file_name %> was imported successfully
+<% else %>
+  File <%= @importation.file_name %> failed to be imported
+<% end %>

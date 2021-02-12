@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+</head>
+<body>
+<% if @importation.successful? %>
+  <h1>File <%= @importation.file_name %> was imported successfully</h1>
+<% else %>
+  <h1>File <%= @importation.file_name %> failed to be imported</h1>
+<% end %>
+</body>
+</html>
