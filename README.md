@@ -123,3 +123,4 @@ Logs are in the usual location for a rail application:
 - [ ] import: force importation of a given file
 - [ ] Automate deployment
 - [ ] Use https://github.com/djezzzl/factory_trace
+- [ ] Validate models during deployment
