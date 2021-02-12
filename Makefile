@@ -21,4 +21,4 @@ deploy: ## Deploy last version locally
 	git pull --rebase
 	bundle install
 	bundle exec whenever --update-crontab
-	rails db:migrate
+	rails db:migrate db:validate
