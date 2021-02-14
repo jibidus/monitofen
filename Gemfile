@@ -79,3 +79,7 @@ gem "nokogumbo", "~> 2.0"
 gem "require_all", "~> 3.0"
 
 gem 'sendgrid-ruby'
+
+gem 'validb'
+
+gem "model_validator", "~> 0.1.0"
