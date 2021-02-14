@@ -82,4 +82,4 @@ gem 'sendgrid-ruby'
 
 gem 'validb'
 
-gem "model_validator", "~> 0.1.0"
+gem "model_validator", "~> 1.0.0"
