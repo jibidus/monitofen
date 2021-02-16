@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/jibidus/monitofen.svg?branch=main)](https://travis-ci.com/jibidus/monitofen)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/0f6afb0f6da8272fc532/test_coverage)](https://codeclimate.com/github/jibidus/monitofen/test_coverage)
 
 :warning: Under development
 
