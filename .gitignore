@@ -48,3 +48,6 @@ tmp/
 
 # Sendgrid config (email api)
 sendgrid.env
+
+# Test coverage result
+coverage/
