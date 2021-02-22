@@ -1,16 +1,12 @@
 <template>
-  <div id="app">
-    <p>{{ message }}</p>
+  <div>
+    <p>Welcome to Monitofen!</p>
+    <p>This application will allow you to monitor all measures of your Okofen boiler.</p>
   </div>
 </template>
 
 <script>
 export default {
-  data: function () {
-    return {
-      message: "Hello Vue!"
-    }
-  }
 }
 </script>
 
