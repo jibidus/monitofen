@@ -1,6 +1,7 @@
 class MeasuresController < ApplicationController
   def index
-    measures = Measure.all
+    metric = Metric.find(params[:metric_id])
+    measures = Measure.select(metric)
     render json: measures
   end
 end

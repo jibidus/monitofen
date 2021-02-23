@@ -4,7 +4,7 @@ class Importation < ApplicationRecord
   validates :status, inclusion: { in: %i[running successful failed] }
 
   def status
-    self[:status].to_sym
+    self[:status].try(:to_sym)
   end
 
   def status=(value)
