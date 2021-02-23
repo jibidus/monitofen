@@ -119,9 +119,5 @@ Logs are in the usual location for a rail application:
 
 # TODO
 
-- [ ] PI: test schedule file importation
-- [ ] PI: notify in case of error
 - [ ] import: force importation of a given file
-- [ ] Automate deployment
 - [ ] Use https://github.com/djezzzl/factory_trace
-- [ ] Validate models during deployment
