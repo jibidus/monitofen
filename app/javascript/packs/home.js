@@ -51,12 +51,18 @@
 
 import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
-import App from '../app.vue'
+import VueRouter from 'vue-router'
+import WelcomePage from "../WelcomePage";
 
 Vue.use(TurbolinksAdapter);
 document.addEventListener('turbolinks:load', () => {
-  const app = new Vue({
-    el: '#app-container',
-    components: { App }
-  });
+    Vue.use(VueRouter);
+    const routes = [
+        {path: '/', component: WelcomePage},
+    ]
+    const router = new VueRouter({
+        routes
+    })
+
+    new Vue({router}).$mount('#app');
 });
