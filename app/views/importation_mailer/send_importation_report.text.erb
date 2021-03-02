@@ -1,5 +1,7 @@
 <% if @importation.successful? %>
   File <%= @importation.file_name %> was imported successfully
-<% else %>
+<% elsif @importation.failed? %>
   File <%= @importation.file_name %> failed to be imported
+<% else %>
+  File <%= @importation.file_name %> has unexpected status: <%= @importation.status %>
 <% end %>
