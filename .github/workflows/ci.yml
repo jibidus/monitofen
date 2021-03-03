@@ -1,0 +1,62 @@
+name: Tests
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '!*' # Do not execute on tags
+  pull_request:
+jobs:
+  backend:
+    runs-on: ubuntu-20.04
+    env:
+      RAILS_ENV: test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: |
+          sudo apt-get -yqq install libpq-dev
+          bundle install --no-deployment --jobs 4 --retry 3
+      - run: make lint-back
+      - run: make test-back
+      - run: make security
+      - uses: actions/upload-artifact@v2
+        with:
+          name: back-coverage
+          path: coverage/backend/.resultset.json
+  frontend:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.16.0
+      - uses: egordm/gha-yarn-node-cache@v1
+      - run: yarn install --frozen-lockfile
+      - run: make lint-front
+      - run: make test-front-coverage
+      - uses: actions/upload-artifact@v2
+        with:
+          name: front-coverage
+          path: coverage/frontend/lcov.info
+  coverage:
+    runs-on: ubuntu-20.04
+    needs: [backend, frontend]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: back-coverage
+      - uses: actions/download-artifact@v2
+        with:
+          name: front-coverage
+      - name: Publish test coverage
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageLocations: |
+            ${{github.workspace}}/coverage/backend/.resultset.json:simplecov
+            ${{github.workspace}}/coverage/frontend/lcov.info:lcov
