@@ -20,15 +20,9 @@ linter:
 #     config: config/.reek.yml
 
 #   # https://help.sider.review/tools/javascript/eslint
-#   eslint:
-#     dir: frontend/app
-#     config: .my_eslintrc
-#     ext: ".js,.jsx,.es6"
-#     ignore-path: .my_eslintignore
-#     no-ignore: true
-#     ignore-pattern: "/src/vendor/*"
-#     global: "require,exports:true"
-#     quiet: true
+  eslint:
+    dir: app/javascript
+    config: .eslintrc.js
 
 #   # https://help.sider.review/tools/css/stylelint
 #   stylelint:

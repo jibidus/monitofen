@@ -3,7 +3,7 @@ module.exports = {
     testMatch: ["**/spec/javascripts/**/*.spec.js"],
     roots: ['<rootDir>'],
     moduleNameMapper: {
-        "^@\/(.*)$": "<rootDir>/app/javascript/$1"
+        "^@/(.*)$": "<rootDir>/app/javascript/$1"
     },
     resolver: null,
     setupFilesAfterEnv: ['./spec/support/jest-setup.js'],
