@@ -53,12 +53,14 @@ import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
 import VueRouter from 'vue-router'
 import WelcomePage from "../WelcomePage";
+import MeasuresPage from "../MeasuresPage";
 
 Vue.use(TurbolinksAdapter);
 document.addEventListener('turbolinks:load', () => {
     Vue.use(VueRouter);
     const routes = [
-        {path: '/', component: WelcomePage},
+        {name: 'welcome', path: '/', component: WelcomePage},
+        {name: 'measures', path: '/measures', component: MeasuresPage},
     ]
     const router = new VueRouter({
         routes

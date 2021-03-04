@@ -6,7 +6,10 @@ test: test-back test-front ## Test application (backend and frontend)
 test-back: ## Test backend
 	bundle exec rspec
 
-test-front: ## Test frontend in watch mode
+test-front: ## Test frontend
+	yarn test
+
+test-front-watch: ## Test frontend in watch mode
 	yarn test --watch
 
 test-front-coverage: ## Test frontend with coverage
@@ -36,5 +39,6 @@ import: ## Import measures from boiler
 deploy: ## Deploy last version locally
 	git pull --rebase
 	bundle install
+	yarn install --frozen-lockfile
 	bundle exec whenever --update-crontab
 	rails db:migrate db:validate
