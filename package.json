@@ -6,6 +6,8 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
+    "axios": "^0.21.1",
+    "d3": "^6.5.0",
     "turbolinks": "^5.2.0",
     "vue": "^2.6.12",
     "vue-loader": "^15.9.5",
@@ -15,6 +17,34 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/vue": "^5.6.1",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-unit-jest": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/test-utils": "^1.0.3",
+    "babel-eslint": "^10.1.0",
+    "css-loader": "^5.1.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-jest-dom": "^3.6.5",
+    "eslint-plugin-vue": "^7.7.0",
     "webpack-dev-server": "^3.11.2"
+  },
+  "scripts": {
+    "test": "vue-cli-service test:unit"
+  },
+  "jest": {
+    "preset": ",@vue/cli-plugin-unit-jest",
+    "testMatch": [
+      "**/spec/javascripts/**/*.spec.js"
+    ],
+    "roots": [
+      ",<rootDir>"
+    ],
+    "moduleNameMapper": {
+      "/^@/(.*)$/": "<rootDir>/app/javascript/$1"
+    },
+    "resolver": null
   }
 }
