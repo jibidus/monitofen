@@ -1,7 +1,11 @@
 <template>
   <div>
     <p>Welcome to Monitofen!</p>
-    <p>This application will allow you to monitor all measures of your Okofen boiler.</p>
+    <p>
+      This application will allow you to <router-link to="measures">
+        monitor all measures of your Okofen boiler
+      </router-link>.
+    </p>
   </div>
 </template>
 
