@@ -46,6 +46,8 @@ jobs:
     needs: [backend, frontend]
     if: github.ref == 'refs/heads/main'
     steps:
+      # Require by codeclimate-action since GITHUB_COMMITTED_AT is not available
+      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
           name: back-coverage
@@ -58,5 +60,5 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
           coverageLocations: |
-            ${{github.workspace}}/coverage/backend/.resultset.json:simplecov
-            ${{github.workspace}}/coverage/frontend/lcov.info:lcov
+            ${{github.workspace}}/.resultset.json:simplecov
+            ${{github.workspace}}/lcov.info:lcov
