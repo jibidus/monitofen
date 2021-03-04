@@ -1,5 +1,7 @@
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  coverage_dir "coverage/backend"
+end
 
 require 'webmock/rspec'
 require 'require_all'

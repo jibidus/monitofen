@@ -18,12 +18,7 @@ module.exports = function(api) {
   return {
     presets: [
       isTestEnv && [
-        '@babel/preset-env',
-        {
-          targets: {
-            node: 'current'
-          }
-        }
+        '@vue/cli-plugin-babel/preset'
       ],
       (isProductionEnv || isDevelopmentEnv) && [
         '@babel/preset-env',
