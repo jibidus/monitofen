@@ -85,10 +85,10 @@ cd ~/monitofen
 rails db:setup
 ```
 
-3. Setup crontab
+3. Deploy tha app
 
 ```
-make deploy-crontab
+make deploy
 ```
 
 # How to import boiler measures manually?
