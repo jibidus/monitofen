@@ -35,18 +35,5 @@
   },
   "scripts": {
     "test": "vue-cli-service test:unit"
-  },
-  "jest": {
-    "preset": ",@vue/cli-plugin-unit-jest",
-    "testMatch": [
-      "**/spec/javascripts/**/*.spec.js"
-    ],
-    "roots": [
-      ",<rootDir>"
-    ],
-    "moduleNameMapper": {
-      "/^@/(.*)$/": "<rootDir>/app/javascript/$1"
-    },
-    "resolver": null
   }
 }
