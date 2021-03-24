@@ -1,17 +1,13 @@
-require 'net/http'
-
-HEADER_FILE = 'titles.csv'.freeze
-
-class BoilerFile
+class BoilerLocalFile
   attr_reader :name
 
-  def initialize(name, url)
+  def initialize(name, path)
     @name = name
-    @path = url
+    @path = path
   end
 
   def measures?
-    /\.csv$/ =~ @path && @name != HEADER_FILE
+    /\.csv$/ =~ @path
   end
 
   def complete?
@@ -27,8 +23,11 @@ class BoilerFile
   end
 
   def content
-    uri = URI(@path)
-    Net::HTTP.get_response(uri).body
+    content = ""
+    File.open(@path) do |f|
+      content = f.read
+    end
+    content
   end
 
   def sanitized_content
