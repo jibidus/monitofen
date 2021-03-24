@@ -3,8 +3,8 @@ require 'uri'
 require 'set'
 
 class MeasuresImporter
-  def initialize(boiler_base_url)
-    @boiler = Boiler.new(boiler_base_url)
+  def initialize(boiler_base_url_or_file_path)
+    @boiler = Boiler.new(boiler_base_url_or_file_path)
   end
 
   def import_all

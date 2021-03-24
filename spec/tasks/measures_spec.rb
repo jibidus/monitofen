@@ -1,6 +1,7 @@
 require 'rails_helper'
 require 'measures_importer'
 require 'csv_metric_mapper'
+require 'tempfile'
 
 RSpec.describe 'measures:import', type: :task do
   before do
@@ -21,6 +22,29 @@ RSpec.describe 'measures:import', type: :task do
 
     it { expect(Importation.count).to eq(0) }
     it { expect(Measure.count).to eq(0) }
+  end
+
+  context 'when file path given' do
+    let(:file) do
+      Tempfile.new(["touch_20201210", ".csv"]).tap do |f|
+        f << <<~CSV
+          Datum ;Zeit ;AT [°C];KT Ist [°C];
+          10.12.2020;00:03:24;2,4;39,6;
+          10.12.2020;00:04:24;2,4;39,6;
+        CSV
+        f.close
+      end
+    end
+
+    after do
+      file.unlink
+    end
+
+    before do
+      task.execute from: file.path
+    end
+
+    it { expect(Importation.count).to eq(1) }
   end
 
   context 'when files are available but not CSV' do
