@@ -91,15 +91,21 @@ rails db:setup
 make deploy
 ```
 
-# How to import boiler measures manually?
+# How to import boiler measures manually from boiler url?
 
 ```shell
-rails measures:import[<boiler url>]
+rails "measures:import[<boiler url>]"
 ```
 
 Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).
 
 Note: `[<boiler url>]` can be removed for the benefit of the `MONITOFEN_BOILER_BASE_URL` env var.
+
+# How to import boiler measures manually from filesystem?
+
+```shell
+rails "measures:import[<measures file path>]"
+```
 
 # How to pretty print object in rails console?
 
