@@ -45,6 +45,7 @@ RSpec.describe 'measures:import', type: :task do
     end
 
     it { expect(Importation.count).to eq(1) }
+    it { expect(Rails.logger).to have_received(:info).with(/File "touch_20201210.*\.csv" successfully imported./).once }
   end
 
   context 'when files are available but not CSV' do
@@ -93,7 +94,10 @@ RSpec.describe 'measures:import', type: :task do
 
     it { expect(Rails.logger).to have_received(:info).with(/Import file #{file_name}/) }
 
-    it { expect(Rails.logger).to have_received(:info).with(/2 measure\(s\) imported/) }
+    it {
+      expected_log = /File "touch_20201210\.csv" successfully imported with 2 measure\(s\) in .*s\./
+      expect(Rails.logger).to have_received(:info).with(expected_log)
+    }
 
     it { expect(ActionMailer::Base.deliveries.count).to eq(1) }
   end
