@@ -30,6 +30,8 @@ class MeasuresImporter
         measure.importation = importation
       end
     end
-    Rails.logger.info "#{count} measure(s) imported in #{Time.current - start}s"
+    Rails.logger.info <<~MSG
+      File \"#{file.name}\" successfully imported with #{count} measure(s) in #{Time.current - start}s.
+    MSG
   end
 end
