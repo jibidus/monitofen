@@ -21,7 +21,7 @@ linter:
 
 #   # https://help.sider.review/tools/javascript/eslint
   eslint:
-    dir: app/javascript
+    target: app/javascript
     config: .eslintrc.js
 
 #   # https://help.sider.review/tools/css/stylelint
