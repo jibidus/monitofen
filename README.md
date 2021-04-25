@@ -40,7 +40,9 @@ chmod 600 ~/.ssh/authorized_keys
 ```shell
 sudo apt-get update
 sudo apt-get full-upgrade
-sudo apt-get install git postgresql postgresql-contrib libpq-dev
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install git postgresql postgresql-contrib libpq-dev nodejs
+sudo npm install --global yarn
 
 sudo su - postgtes
 createuser pi -P --interactive
