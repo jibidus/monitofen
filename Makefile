@@ -42,3 +42,4 @@ deploy: ## Deploy last version locally
 	yarn install --frozen-lockfile
 	bundle exec whenever --update-crontab
 	rails db:migrate db:validate
+	rails assets:precompile
