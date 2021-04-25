@@ -125,5 +125,4 @@ Logs are in the usual location for a rail application:
 
 # TODO
 
-- [ ] import: force importation of a given file
 - [ ] Use https://github.com/djezzzl/factory_trace
