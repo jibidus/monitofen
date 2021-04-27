@@ -41,7 +41,7 @@ chmod 600 ~/.ssh/authorized_keys
 sudo apt-get update
 sudo apt-get full-upgrade
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt-get install git postgresql postgresql-contrib libpq-dev nodejs
+sudo apt-get install git postgresql postgresql-contrib libpq-dev nodejs nginx
 sudo npm install --global yarn
 
 sudo su - postgtes
@@ -84,6 +84,10 @@ mkdir -p shared/pids shared/sockets shared/log
 sudo cp infra-files/init.d-unicorn_monitofen /etc/init.d/unicorn_monitofen
 sudo chmod 755 /etc/init.d/unicorn_monitofen
 sudo update-rc.d unicorn_monitofen defaults
+
+# Nginx
+sudo cp infra-files/nginx-config /etc/nginx/sites-available/default
+sudo service nginx restart
 ```
 
 2. Init db
