@@ -78,6 +78,12 @@ echo "export SECRET_KEY_BASE=\"$(rails secret)\"" >> ~/.monitofen_profile
 echo "[[ -r ~/.monitofen_profile ]] && . ~/.monitofen_profile" >> ~/.bashrc
 echo "[[ -r ~/.monitofen_profile ]] && . ~/.monitofen_profile" >> ~/.bash_profile
 source ~/.monitofen_profile
+
+# Unicorn
+mkdir -p shared/pids shared/sockets shared/log
+sudo cp infra-files/init.d-unicorn_monitofen /etc/init.d/unicorn_monitofen
+sudo chmod 755 /etc/init.d/unicorn_monitofen
+sudo update-rc.d unicorn_monitofen defaults
 ```
 
 2. Init db
