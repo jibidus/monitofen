@@ -120,13 +120,19 @@ Use [ap](https://github.com/awesome-print/awesome_print):
 ap Metric.take
 ```
 
+# Infrastructure
+
+`Nginx` (with service named `nginx`) exposes `Unicorn` socket (with service named `unicorn_monitofen`), which runs rails app behind.
+
+- use `systemctl restart nginx` to restart service.
+- use `journalctl -fu nginx` to read nginx logs.
+
 # Where are logs?
 
-Logs are in the usual location for a rail application:
+There are many logs:
 
-```
-~/monitofen/logs/production.log
-```
+- `~/monitofen/logs/production.log`: application logs
+- `/var/log/nginx/*.log`: nginx logs
 
 # TODO
 
