@@ -85,3 +85,5 @@ gem 'sendgrid-ruby'
 gem 'validb'
 
 gem "model_validator", ">= 1.0.0"
+
+gem "unicorn", "~> 6.0"
