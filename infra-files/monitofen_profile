@@ -1,0 +1,9 @@
+# Monifofen config
+export RAILS_ENV=production
+export MONITOFEN_DB_HOST="localhost"
+export MONITOFEN_DB_USERNAME="pi"
+export MONITOFEN_DB_PASSWORD="<pg_password>"
+export MONITOFEN_DB_NAME="monitofen"
+export MONITOFEN_BOILER_BASE_URL=<boiler base url (ex:http://192.168.1.2:80)>
+export SENDGRID_API_KEY="<send grid API key>"
+export SECRET_KEY_BASE="<run 'rails secret' to generate a new secret>"
