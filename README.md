@@ -41,6 +41,8 @@ rails "measures:import[<measures file path>]"
 
 ## TODO
 
+- [ ] Front: filter measures by time period
+- [ ] Backend: limit measures result count
 - [ ] Use https://github.com/djezzzl/factory_trace
 
 ## Additional documentation
