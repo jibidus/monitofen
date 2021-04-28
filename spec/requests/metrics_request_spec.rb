@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Metrics", type: :request do
-  before { get '/metrics' }
+  before { get '/metrics', xhr: true }
 
   it { expect(response).to be_json }
   it { expect(response).to have_http_status(:ok) }
