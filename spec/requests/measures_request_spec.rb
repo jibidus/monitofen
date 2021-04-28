@@ -4,7 +4,7 @@ RSpec.describe "Measures", type: :request do
   describe "when no measure" do
     let(:metric) { Metric.take }
 
-    before { get "/metrics/#{metric.id}/measures" }
+    before { get "/metrics/#{metric.id}/measures", xhr: true }
 
     it { expect(response).to be_json }
     it { expect(response).to have_http_status(:ok) }
@@ -17,7 +17,7 @@ RSpec.describe "Measures", type: :request do
 
     before do
       create :measure, { metric.column_name => 1.2, date: measure_date }
-      get "/metrics/#{metric.id}/measures"
+      get "/metrics/#{metric.id}/measures", xhr: true
     end
 
     it { expect(json_response).not_to be_empty }
