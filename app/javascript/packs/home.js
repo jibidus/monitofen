@@ -51,10 +51,14 @@
 
 import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
+//import Vue from 'vue'
 import VueRouter from 'vue-router'
 import WelcomePage from "../WelcomePage";
 import MeasuresPage from "../MeasuresPage";
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 
+Vue.use(Vuetify)
 Vue.use(TurbolinksAdapter);
 document.addEventListener('turbolinks:load', () => {
     Vue.use(VueRouter);
@@ -66,5 +70,5 @@ document.addEventListener('turbolinks:load', () => {
         routes
     })
 
-    new Vue({router}).$mount('#app');
+    new Vue({router, vuetify: new Vuetify}).$mount('#app');
 });
