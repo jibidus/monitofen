@@ -51,7 +51,7 @@
 
 import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
-//import Vue from 'vue'
+import '@fortawesome/fontawesome-free/css/all.css'
 import VueRouter from 'vue-router'
 import WelcomePage from "../WelcomePage";
 import MeasuresPage from "../MeasuresPage";
@@ -70,5 +70,6 @@ document.addEventListener('turbolinks:load', () => {
         routes
     })
 
-    new Vue({router, vuetify: new Vuetify}).$mount('#app');
+    let vuetify = new Vuetify({icons: {iconfont: 'fa'}});
+    new Vue({router, vuetify}).$mount('#app');
 });
