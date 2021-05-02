@@ -42,7 +42,11 @@ rails "measures:import[<measures file path>]"
 ## TODO
 
 - [ ] Front: filter measures by time period
-- [ ] Backend: limit measures result count
+- [ ] Backend: limit measures result count 
+- [ ] Migrate to TypeScript
+- [ ] Dev: front auto-reload
+- [ ] Vuetify dark theme
+- [ ] Front tests: replace RSpec style by JUnit style 
 - [ ] Use https://github.com/djezzzl/factory_trace
 
 ## Additional documentation

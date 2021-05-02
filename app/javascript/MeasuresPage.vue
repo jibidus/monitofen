@@ -1,12 +1,35 @@
 <template>
-  <div>
-    <p>Here are measures</p>
-    <MetricsSelect v-model="metric" />
-    <MeasuresChartWrapper
-      v-if="metric"
-      :metric="metric"
-    />
-  </div>
+  <v-app>
+    <v-main>
+      <div class="float-right pa-2">
+        {{ $vuetify.breakpoint.name }}
+      </div>
+      <v-container>
+        <v-row>
+          <v-col>
+            <h1>
+              <v-icon>fa-analytics</v-icon>
+              Measures explorer
+            </h1>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col
+            xs="12"
+            sm="6"
+            md="4"
+            lg="3"
+          >
+            <MetricsSelect v-model="metric" />
+          </v-col>
+        </v-row>
+        <MeasuresChartWrapper
+          v-if="metric"
+          :metric="metric"
+        />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>

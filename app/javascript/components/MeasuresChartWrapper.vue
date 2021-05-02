@@ -1,17 +1,9 @@
 <template>
   <div>
-    <div
-      v-if="loading"
-      role="progressbar"
-    >
-      loading…
-    </div>
-    <div
-      v-else-if="error"
-      role="aria-errormessage"
-    >
+    <Spinner v-if="loading" />
+    <Error v-else-if="error">
       {{ error }}
-    </div>
+    </Error>
     <div
       v-else-if="measures.length === 0"
       role="placeholder"
@@ -29,10 +21,12 @@
 import FetchData from "../mixins/FetchData";
 import axios from "axios";
 import MeasuresChart from "./MeasuresChart";
+import Spinner from "./Spinner";
+import Error from "./Error";
 
 export default {
   name: "MeasuresChartWrapper",
-  components: {MeasuresChart},
+  components: {MeasuresChart, Spinner, Error},
   mixins: [FetchData],
   props: {
     metric: {type: Object, required: true}
