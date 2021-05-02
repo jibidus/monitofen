@@ -1,42 +1,31 @@
 <template>
-  <div :aria-busy="loading">
-    <p
-      v-if="loading"
-      role="progressbar"
-    >
-      Loading…
-    </p>
-    <p
-      v-else-if="error"
-      role="aria-errormessage"
-    >
+  <div aria-busy="loading">
+    <Spinner v-if="loading" />
+    <Error v-else-if="error">
       {{ error }}
-    </p>
-    <form v-else>
-      <label for="metric">Metric</label>
-      <select
-        id="metric"
-        v-model="selectedMetric"
-        @change="onChange(selectedMetric)"
-      >
-        <option
-          v-for="metric in metrics"
-          :key="metric.id"
-          :value="metric"
-        >
-          {{ metric.label }}
-        </option>
-      </select>
-    </form>
+    </Error>
+    <v-combobox
+      v-else
+      id="metric"
+      v-model="selectedMetric"
+      :items="metrics"
+      item-text="label"
+      label="Metric"
+      prepend-icon="fa-ruler-combined"
+      dense
+    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import FetchData from "../mixins/FetchData";
+import Spinner from "./Spinner";
+import Error from "./Error";
 
 export default {
   name: "MetricsSelect",
+  components: {Error, Spinner},
   mixins: [FetchData],
   props: {
     value: {type: Object, default: null}
@@ -45,6 +34,11 @@ export default {
     return {
       metrics: null,
       selectedMetric: null,
+    }
+  },
+  watch: {
+    selectedMetric: function(metric) {
+      this.$emit('input', metric);
     }
   },
   methods: {
@@ -56,13 +50,7 @@ export default {
       }
       this.metrics = response.data;
     },
-    onChange(metric) {
-      this.$emit('input', metric);
-    }
   }
 }
 </script>
 
-<style scoped>
-
-</style>

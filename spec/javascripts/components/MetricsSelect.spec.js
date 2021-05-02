@@ -1,9 +1,9 @@
 import MetricsSelect from '@/components/MetricsSelect.vue'
 import axios from 'axios';
-import {render} from '@testing-library/vue'
 import userEvent from '@testing-library/user-event'
 import {byRole, byLabelText} from 'testing-library-selector'
 import buildMetric from '../factories/metric'
+import renderCmp from "../../support/render";
 
 jest.mock('axios');
 
@@ -11,7 +11,6 @@ const ui = {
     spinner: byRole('progressbar'),
     errorMessage: byRole('aria-errormessage'),
     metricSelect: byLabelText('Metric'),
-    metricOption: byRole('option')
 }
 
 describe("<MetricsSelect/>", function () {
@@ -23,11 +22,10 @@ describe("<MetricsSelect/>", function () {
             axiosGetReject = reject;
         });
         axios.get.mockImplementation(() => axiosGet);
-        wrapper = render(MetricsSelect)
+        wrapper = renderCmp(MetricsSelect);
     });
-    it('shows spinner', () => {
-        expect(ui.spinner.get()).toBeVisible();
-        expect(wrapper.container.firstChild).toHaveAttribute('aria-busy', 'true');
+    it('shows spinner', async () => {
+        expect(await ui.spinner.find()).toBeVisible();
     });
 
     describe('when request failed', () => {
@@ -46,26 +44,20 @@ describe("<MetricsSelect/>", function () {
         });
     });
 
-    describe('when request returns 2 metrics', () => {
+    describe('when request returns 2 metrics, and we select one', () => {
         const metric1 = buildMetric();
         const metric2 = buildMetric();
-        beforeEach(() => axiosGetResolve({
-            status: 200,
-            data: [metric1, metric2]
-        }));
-        it('shows 2 metrics', async () => {
-            expect(await ui.metricOption.findAll()).toHaveLength(2);
+        beforeEach(async () => {
+            axiosGetResolve({
+                status: 200,
+                data: [metric1, metric2]
+            });
+            userEvent.click(await ui.metricSelect.find());
+            userEvent.click(await wrapper.findByText(metric2.label));
         });
 
-        describe('and we select a metric', () => {
-            beforeEach(async () => {
-                const metricSelect = await ui.metricSelect.find();
-                let metric2Option = await wrapper.findByText(metric2.label);
-                userEvent.selectOptions(metricSelect, metric2Option);
-            });
-            it('emits event with selected metric', () => {
-                expect(wrapper.emitted().input).toEqual([[metric2]]);
-            });
+        it('an event is emitted with selected metric', () => {
+            expect(wrapper.emitted().input).toEqual([[metric2]]);
         });
     });
 });

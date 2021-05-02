@@ -53,7 +53,7 @@ import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
 import '@fortawesome/fontawesome-free/css/all.css'
 import VueRouter from 'vue-router'
-import WelcomePage from "../WelcomePage";
+import HomePage from "../HomePage";
 import MeasuresPage from "../MeasuresPage";
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -63,7 +63,7 @@ Vue.use(TurbolinksAdapter);
 document.addEventListener('turbolinks:load', () => {
     Vue.use(VueRouter);
     const routes = [
-        {name: 'welcome', path: '/', component: WelcomePage},
+        {name: 'home', path: '/', component: HomePage},
         {name: 'measures', path: '/measures', component: MeasuresPage},
     ]
     const router = new VueRouter({
