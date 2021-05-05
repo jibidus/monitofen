@@ -57,7 +57,9 @@ import HomePage from "../HomePage";
 import MeasuresPage from "../MeasuresPage";
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import moment from "moment-timezone";
 
+moment.tz.setDefault("Europe/Paris");
 Vue.use(Vuetify)
 Vue.use(TurbolinksAdapter);
 document.addEventListener('turbolinks:load', () => {
