@@ -22,7 +22,7 @@ ENV="production"
 
 # environment settings
 PATH="/home/pi/.rvm/gems/ruby-2.7.2/wrappers:$PATH"
-CMD="cd $APP_ROOT && bundle exec unicorn -c config/unicorn.rb -E $ENV -D"
+CMD="source ~/.monitofen_profile && cd $APP_ROOT && bundle exec unicorn -c config/unicorn.rb -E $ENV -D"
 PID="$APP_ROOT/shared/pids/unicorn.pid"
 OLD_PID="$PID.oldbin"
 
