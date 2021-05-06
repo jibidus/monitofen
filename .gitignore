@@ -51,3 +51,6 @@ sendgrid.env
 
 # Test coverage result
 coverage/
+
+# Unicorn files
+shared/
