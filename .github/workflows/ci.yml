@@ -41,6 +41,22 @@ jobs:
         with:
           name: front-coverage
           path: coverage/frontend/lcov.info
+  test-deployment:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: |
+          sudo apt-get -yqq install libpq-dev
+          bundle install --no-deployment --jobs 4 --retry 3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.16.0
+      - uses: egordm/gha-yarn-node-cache@v1
+      - run: yarn install --frozen-lockfile
+      - run: SECRET_KEY_BASE="$(bundle exec rails secret)" RAILS_ENV=production bundle exec rails assets:precompile
   coverage:
     runs-on: ubuntu-20.04
     needs: [backend, frontend]
