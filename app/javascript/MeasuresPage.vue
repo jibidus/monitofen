@@ -1,38 +1,28 @@
 <template>
-  <v-app>
-    <v-main>
-      <div
-        v-if="environment === 'development'"
-        class="float-right pa-2"
+  <div>
+    <v-row>
+      <v-col>
+        <h1>
+          <v-icon>fa-analytics</v-icon>
+          Measures explorer
+        </h1>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col
+        xs="12"
+        sm="6"
+        md="4"
+        lg="3"
       >
-        {{ $vuetify.breakpoint.name }}
-      </div>
-      <v-container>
-        <v-row>
-          <v-col>
-            <h1>
-              <v-icon>fa-analytics</v-icon>
-              Measures explorer
-            </h1>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col
-            xs="12"
-            sm="6"
-            md="4"
-            lg="3"
-          >
-            <MetricsSelect v-model="metric" />
-          </v-col>
-        </v-row>
-        <MeasuresChartWrapper
-          v-if="metric"
-          :metric="metric"
-        />
-      </v-container>
-    </v-main>
-  </v-app>
+        <MetricsSelect v-model="metric" />
+      </v-col>
+    </v-row>
+    <MeasuresChartWrapper
+      v-if="metric"
+      :metric="metric"
+    />
+  </div>
 </template>
 
 <script>
@@ -44,11 +34,6 @@ export default {
   components: {MetricsSelect, MeasuresChartWrapper},
   data() {
     return {metric: null}
-  },
-  computed: {
-    environment() {
-      return document.getElementsByTagName("body")[0].getAttribute("data-env");
-    }
   }
 }
 </script>
