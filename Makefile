@@ -43,5 +43,5 @@ deploy: ## Deploy last version locally
 	bundle exec whenever --update-crontab
 	rails db:migrate db:validate
 	rails assets:precompile
-	sudo service unicorn_monitofen restart
-	sudo service nginx restart
+	sudo service unicorn_monitofen stop
+	sudo service unicorn_monitofen start
