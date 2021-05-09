@@ -1,13 +1,15 @@
 <template>
   <v-app>
+    <v-app-bar
+      app
+      dense
+    >
+      <v-toolbar-title>{{ $route.name }}</v-toolbar-title>
+      <v-spacer />
+      <vuetify-css-breakpoint v-if="environment === 'development'" />
+    </v-app-bar>
     <v-main>
-      <div
-        v-if="environment === 'development'"
-        class="float-right pa-2"
-      >
-        {{ $vuetify.breakpoint.name }}
-      </div>
-      <v-container>
+      <v-container fluid>
         <router-view />
       </v-container>
     </v-main>
@@ -15,8 +17,10 @@
 </template>
 
 <script>
+import VuetifyCssBreakpoint from "./VuetifyCssBreakpoint";
 export default {
   name: "App",
+  components: {VuetifyCssBreakpoint},
   computed: {
     environment() {
       return document.getElementsByTagName("body")[0].getAttribute("data-env");
