@@ -1,7 +1,10 @@
 <template>
   <v-app>
     <v-main>
-      <div class="float-right pa-2">
+      <div
+        v-if="environment === 'development'"
+        class="float-right pa-2"
+      >
         {{ $vuetify.breakpoint.name }}
       </div>
       <v-container>
@@ -42,6 +45,11 @@ export default {
   data() {
     return {metric: null}
   },
+  computed: {
+    environment() {
+      return document.getElementsByTagName("body")[0].getAttribute("data-env");
+    }
+  }
 }
 </script>
 

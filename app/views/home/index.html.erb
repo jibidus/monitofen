@@ -12,7 +12,7 @@
   <%= javascript_pack_tag 'home' %>
 </head>
 
-<body>
+<body data-env="<%= Rails.env %>">
   <div id="app">
     <router-view></router-view>
   </div>
