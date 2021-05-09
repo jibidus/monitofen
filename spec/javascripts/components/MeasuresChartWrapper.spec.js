@@ -4,8 +4,10 @@ import {byTestId, byText} from 'testing-library-selector'
 import {screen} from '@testing-library/vue';
 import buildMetric from '../factories/metric';
 import buildMeasure from '../factories/measure';
+import moment from "moment-timezone";
 import MockDate from 'mockdate'
 import axios from "axios";
+import {DEFAULT_TIMEZONE} from "../../support/constants";
 
 jest.mock('axios');
 beforeEach(() => axios.get.mockClear());
@@ -48,6 +50,20 @@ describe("<MeasuresChartWrapper/>", function () {
         });
         it('displays a chart', async () => {
             expect(ui.chart.get()).toBeVisible();
+        });
+    });
+    describe('when time period is given', () => {
+        it('fetches measures with this time period', async () => {
+            axios.get.mockResolvedValue({data: [buildMeasure()], status: 200});
+            const from = moment.tz("2020-04-10T10:20:30+02:00", DEFAULT_TIMEZONE);
+            const to = moment.tz("2020-04-11T10:20:30+02:00", DEFAULT_TIMEZONE);
+            await renderCmp(MeasuresChartWrapper, {props: {metric: buildMetric(), from, to}});
+            expect(axios.get.mock.calls[0][1]).toStrictEqual({
+                params: {
+                    from: "2020-04-10 10:20:30 +0200",
+                    to: "2020-04-11 10:20:30 +0200"
+                }
+            });
         });
     });
 });

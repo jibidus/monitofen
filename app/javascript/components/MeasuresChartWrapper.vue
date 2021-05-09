@@ -31,7 +31,9 @@ export default {
   components: {MeasuresChart, Spinner, Error},
   mixins: [FetchData],
   props: {
-    metric: {type: Object, required: true}
+    metric: {type: Object, required: true},
+    from: {type: Object, required: false},
+    to: {type: Object, required: false}
   },
   data() {
     return {measures: null}
@@ -44,8 +46,8 @@ export default {
   methods: {
     async fetchData() {
       const params = {
-        from: moment().subtract(1, 'days').format(API_DATE_FORMAT),
-        to: moment().format(API_DATE_FORMAT)
+        from: (this.from || moment().subtract(1, 'days')).format(API_DATE_FORMAT),
+        to: (this.to || moment()).format(API_DATE_FORMAT)
       }
       const response = await axios.get(`/metrics/${this.metric.id}/measures`, {params});
       if (response.status !== 200) {
