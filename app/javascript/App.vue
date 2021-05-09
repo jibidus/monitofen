@@ -4,7 +4,7 @@
       app
       dense
     >
-      <v-toolbar-title>{{ $route.name }}</v-toolbar-title>
+      <v-toolbar-title>{{ $route.meta.title }}</v-toolbar-title>
       <v-spacer />
       <vuetify-css-breakpoint v-if="environment === 'development'" />
     </v-app-bar>
