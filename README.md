@@ -45,6 +45,7 @@ rails "measures:import[<measures file path>]"
 - [ ] Backend: limit measures result count 
 - [ ] Migrate to TypeScript
 - [ ] Dev: front auto-reload
+- [ ] Dev: move stats floating div on the right (and breakpoint on bottom right) 
 - [ ] Vuetify dark theme
 - [ ] Front tests: replace RSpec style by JUnit style 
 - [ ] Use https://github.com/djezzzl/factory_trace
