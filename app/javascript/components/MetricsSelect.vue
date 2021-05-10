@@ -12,7 +12,6 @@
       item-text="label"
       label="Metric"
       prepend-icon="fa-ruler-combined"
-      dense
     />
   </div>
 </template>

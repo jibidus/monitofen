@@ -1,4 +1,6 @@
 // Requires an async method fetchData()
+import axios from "axios";
+
 const FetchData = {
     data() {
         return {
@@ -15,7 +17,9 @@ const FetchData = {
             try {
                 await this.fetchData();
             } catch (e) {
-                this.error = `cannot fetch metrics (${e})`;
+                if (!axios.isCancel(e)) {
+                    this.error = `cannot fetch metrics (${e})`;
+                }
             } finally {
                 this.loading = false;
             }

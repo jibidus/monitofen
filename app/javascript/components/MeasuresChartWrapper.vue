@@ -32,24 +32,38 @@ export default {
   mixins: [FetchData],
   props: {
     metric: {type: Object, required: true},
-    from: {type: Object, required: false},
-    to: {type: Object, required: false}
+    from: {type: Object, required: false, default: null},
+    to: {type: Object, required: false, default: null}
   },
   data() {
-    return {measures: null}
+    return {measures: null, requestToken: null}
   },
   watch: {
     metric() {
       this.loadData();
     },
+    from() {
+      this.loadData();
+    },
+    to() {
+      this.loadData();
+    },
   },
   methods: {
     async fetchData() {
+      if (this.requestToken) {
+        this.requestToken.cancel('Operation canceled by the user.');
+      }
       const params = {
         from: (this.from || moment().subtract(1, 'days')).format(API_DATE_FORMAT),
         to: (this.to || moment()).format(API_DATE_FORMAT)
       }
-      const response = await axios.get(`/metrics/${this.metric.id}/measures`, {params});
+
+      this.requestToken = axios.CancelToken.source();
+      const response = await axios.get(`/metrics/${this.metric.id}/measures`, {
+        cancelToken: this.requestToken.token,
+        params
+      });
       if (response.status !== 200) {
         this.error = `cannot fetch measures: ${response.statusText} (http code = ${response.status})`;
         return;

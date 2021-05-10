@@ -41,6 +41,7 @@ rails "measures:import[<measures file path>]"
 
 ## TODO
 
+- [ ] Seeds data in dev!!
 - [ ] Front: filter measures by time period
 - [ ] Backend: limit measures result count 
 - [ ] Migrate to TypeScript
@@ -49,6 +50,7 @@ rails "measures:import[<measures file path>]"
 - [ ] Vuetify dark theme
 - [ ] Front tests: replace RSpec style by JUnit style 
 - [ ] Use https://github.com/djezzzl/factory_trace
+- [ ] i18n
 
 ## Additional documentation
 

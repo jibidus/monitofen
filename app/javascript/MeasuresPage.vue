@@ -9,32 +9,39 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col
-        xs="12"
-        sm="6"
-        md="4"
-        lg="3"
-      >
+      <v-col>
         <MetricsSelect v-model="metric" />
       </v-col>
+      <v-col>
+        <time-period-selector
+          @input="timePeriod = $event"
+        />
+      </v-col>
     </v-row>
-    <MeasuresChartWrapper
-      v-if="metric"
-      :metric="metric"
-    />
+    <v-row>
+      <v-col>
+        <MeasuresChartWrapper
+          v-if="metric"
+          :metric="metric"
+          :from="timePeriod.from"
+          :to="timePeriod.to"
+        />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 import MeasuresChartWrapper from "./components/MeasuresChartWrapper";
 import MetricsSelect from "./components/MetricsSelect";
+import TimePeriodSelector from "./components/TimePeriodSelector";
 
 export default {
   name: "MeasuresPage",
-  components: {MetricsSelect, MeasuresChartWrapper},
+  components: {TimePeriodSelector, MetricsSelect, MeasuresChartWrapper},
   data() {
-    return {metric: null}
-  }
+    return {metric: null, timePeriod: null}
+  },
 }
 </script>
 
