@@ -3,9 +3,8 @@ import axios from 'axios';
 import userEvent from '@testing-library/user-event'
 import {byRole, byLabelText} from 'testing-library-selector'
 import buildMetric from '../factories/metric'
+import buildResponse from "../factories/http_response";
 import renderCmp from "../../support/render";
-
-jest.mock('axios');
 
 const ui = {
     spinner: byRole('progressbar'),
@@ -38,7 +37,7 @@ describe("<MetricsSelect/>", function () {
     });
 
     describe('when request response is not 200', () => {
-        beforeEach(() => axiosGetResolve({status: 403}));
+        beforeEach(() => axiosGetResolve(buildResponse.Forbidden()));
         it('shows error message', async () => {
             expect(await ui.errorMessage.find()).toBeVisible();
         });
@@ -48,10 +47,7 @@ describe("<MetricsSelect/>", function () {
         const metric1 = buildMetric();
         const metric2 = buildMetric();
         beforeEach(async () => {
-            axiosGetResolve({
-                status: 200,
-                data: [metric1, metric2]
-            });
+            axiosGetResolve(buildResponse.Successful([metric1, metric2]));
             userEvent.click(await ui.metricSelect.find());
             userEvent.click(await wrapper.findByText(metric2.label));
         });
