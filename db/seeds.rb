@@ -52,3 +52,14 @@ Metric.create! [
                  { column_name: 'metric_50', label: 'PE1 DigIn1' },
                  { column_name: 'metric_51', label: 'PE1 DigIn2' },
                ]
+
+def create_measures(day)
+  importation = Importation.create! file_name: "touch_#{day.strftime('%Y%m%d')}.csv", status: :successful
+  date = day.beginning_of_day
+  while date < day.end_of_day do
+    date = date + 30.minute
+    Measure.create! date: date, "metric_0": Random.rand(10), importation: importation
+  end
+end
+
+((Date.yesterday - 2.day)..Date.yesterday).each { |day| create_measures day}

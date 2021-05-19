@@ -41,7 +41,8 @@ rails "measures:import[<measures file path>]"
 
 ## TODO
 
-- [ ] Seeds data in dev!!
+- [ ] Front: use kebab-case syntax for custom components in templates
+- [ ] Make importation rake task fail if something's wrong  
 - [ ] Front: filter measures by time period
 - [ ] Backend: limit measures result count 
 - [ ] Migrate to TypeScript

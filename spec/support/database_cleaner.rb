@@ -4,7 +4,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation, { except: %w[metrics ar_internal_metadata] }
-    Rails.application.load_seed
+    create_referential_data!
   end
 
   config.around do |example|
