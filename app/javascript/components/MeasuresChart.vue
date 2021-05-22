@@ -8,9 +8,10 @@
 
 <script>
 import * as d3 from "d3";
+import moment from "moment-timezone";
 
 export default {
-  name: "TheChart",
+  name: "MeasuresChart",
   props: {
     measures: {required: true, type: Array},
   },
@@ -28,8 +29,7 @@ export default {
   },
   computed: {
     parsedMeasures() {
-      const parseDate = d3.timeParse("%Y-%m-%dT%H:%M:%S.%LZ");
-      return this.measures.map(m => ({date: parseDate(m.date), value: m.value}))
+      return this.measures.map(m => ({date: moment(m.date), value: m.value}))
     }
   },
   mounted() {
