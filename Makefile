@@ -45,3 +45,4 @@ deploy: ## Deploy last version locally
 	rails assets:precompile
 	sudo service unicorn_monitofen stop
 	sudo service unicorn_monitofen start
+	echo "🎉 Deployment successful!"
