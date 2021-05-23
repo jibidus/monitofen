@@ -7,7 +7,8 @@ namespace :measures do
       raise Rake::TaskArgumentError.new('Mandatory environment variable "MONITOFEN_BOILER_BASE_URL" not defined') # rubocop:disable Style/RaiseArgs
     end
 
-    MeasuresImporter.new(base_url_or_file_path).import_all
+    result = MeasuresImporter.new(base_url_or_file_path).import_all
+    result.raise_error_if_any
     Rails.logger.info "job finished."
   end
 end
