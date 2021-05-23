@@ -67,15 +67,14 @@ RSpec.describe 'measures:import', type: :task do
   end
 
   context 'when one measure file is available' do
-    let(:file_date) { Time.zone.local(2020, 12, 10, 0, 3, 24) }
-    let(:file_name) { "touch_#{file_date.strftime('%Y%m%d')}.csv" }
+    let(:measure_date) { Time.zone.local(2020, 12, 10, 0, 3, 24) }
+    let(:file_name) { "touch_#{measure_date.strftime('%Y%m%d')}.csv" }
 
     before do
       FakeBoiler.stub_files([file_name])
       FakeBoiler.stub_file(file_name, <<~CSV)
         Datum ;Zeit ;AT [°C];KT Ist [°C];
-        10.12.2020;00:03:24;2,4;39,6;
-        10.12.2020;00:04:24;2,4;39,6;
+        #{measure_date.strftime('%d.%m.%Y')};#{measure_date.strftime('%H:%M:%S')};2,4;39,6;
       CSV
 
       task.execute from: FakeBoiler.url
@@ -83,10 +82,10 @@ RSpec.describe 'measures:import', type: :task do
 
     it { expect(Importation.count).to eq(1) }
 
-    it { expect(Measure.count).to eq(2) }
+    it { expect(Measure.count).to eq(1) }
 
     it 'creates measures with values from CSV' do
-      measure = Measure.find_by!(date: file_date)
+      measure = Measure.find_by!(date: measure_date)
       metric = Metric.find_by!(label: MAPPING['KT Ist [°C]'])
       value = measure.send(metric.column_name)
       expect(value).to eq(39.6)
@@ -95,7 +94,7 @@ RSpec.describe 'measures:import', type: :task do
     it { expect(Rails.logger).to have_received(:info).with(/Import file #{file_name}/) }
 
     it {
-      expected_log = /File "touch_20201210\.csv" successfully imported with 2 measure\(s\) in .*s\./
+      expected_log = /File "touch_20201210\.csv" successfully imported with 1 measure\(s\) in .*s\./
       expect(Rails.logger).to have_received(:info).with(expected_log)
     }
 
