@@ -8,7 +8,7 @@ namespace :measures do
     end
 
     result = MeasuresImporter.new(base_url_or_file_path).import_all
+    Rails.logger.info "#{result.successful_importations}/#{result.all_importations} files imported successfully"
     result.raise_error_if_any
-    Rails.logger.info "job finished."
   end
 end
