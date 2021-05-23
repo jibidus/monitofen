@@ -268,4 +268,25 @@ RSpec.describe 'measures:import', type: :task do
     it { expect(Rails.logger).to have_received(:error).with(/Cannot parse row #3/).once }
     it { expect(ActionMailer::Base.deliveries.count).to eq(1) }
   end
+
+  context 'when a file importation failed' do
+    subject(:execute_task) { task.execute(from: FakeBoiler.url) }
+
+    before do
+      file_name1 = "touch_20200714.csv"
+      FakeBoiler.stub_files([file_name1])
+      FakeBoiler.stub_file(file_name1, <<~CSV)
+        Datum ;Zeit ;AT [°C];KT Ist [°C];
+        08.12.2020;00:03:24;2,4;39,6;
+      CSV
+      file_name2 = "touch_20200714.csv"
+      FakeBoiler.stub_files([file_name2])
+      FakeBoiler.stub_file(file_name2, <<~CSV)
+        Datum ;Zeit ;AT [°C];KT Ist [°C];
+        invalid date format;00:03:24;2,4;39,6;
+      CSV
+    end
+
+    it { expect { execute_task }.to raise_error(ImportationError, "1 importation failed") }
+  end
 end

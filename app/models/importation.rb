@@ -33,5 +33,6 @@ class Importation < ApplicationRecord
       importation.update! status: :failed
     end
     ImportationMailer.send_importation_report(importation).deliver
+    importation
   end
 end
