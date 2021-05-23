@@ -37,10 +37,12 @@ class MeasuresImporter
 end
 
 class ImportationResult
-  attr_reader :files_in_error
+  attr_reader :all_importations, :successful_importations
 
   def initialize(importations)
-    @files_in_error = importations.filter(&:failed?).size
+    @all_importations = importations.size
+    @successful_importations = importations.filter(&:successful?).size
+    @files_in_error = @all_importations - @successful_importations
   end
 
   def raise_error_if_any

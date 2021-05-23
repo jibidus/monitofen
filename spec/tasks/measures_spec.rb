@@ -8,6 +8,7 @@ RSpec.describe 'measures:import', type: :task do
     allow(Rails.logger).to receive(:info)
     allow(Rails.logger).to receive(:warn)
     allow(Rails.logger).to receive(:error)
+    FakeBoiler.reset
   end
 
   context 'when no parameter provided' do
@@ -16,7 +17,7 @@ RSpec.describe 'measures:import', type: :task do
 
   context 'when no file is available' do
     before do
-      FakeBoiler.stub_files([])
+      FakeBoiler.stub_files_index []
       task.execute from: FakeBoiler.url
     end
 
@@ -36,13 +37,9 @@ RSpec.describe 'measures:import', type: :task do
       end
     end
 
-    after do
-      file.unlink
-    end
+    before { task.execute from: file.path }
 
-    before do
-      task.execute from: file.path
-    end
+    after { file.unlink }
 
     it { expect(Importation.count).to eq(1) }
     it { expect(Rails.logger).to have_received(:info).with(/File "touch_20201210.*\.csv" successfully imported./).once }
@@ -50,7 +47,7 @@ RSpec.describe 'measures:import', type: :task do
 
   context 'when files are available but not CSV' do
     before do
-      FakeBoiler.stub_files(['graph_20201220.png'])
+      FakeBoiler.stub_file "graph_20201220.png"
       task.execute from: FakeBoiler.url
     end
 
@@ -59,7 +56,7 @@ RSpec.describe 'measures:import', type: :task do
 
   context 'when only titles.csv is available' do
     before do
-      FakeBoiler.stub_files(['titles.csv'])
+      FakeBoiler.stub_file "titles.csv"
       task.execute from: FakeBoiler.url
     end
 
@@ -71,8 +68,7 @@ RSpec.describe 'measures:import', type: :task do
     let(:file_name) { "touch_#{measure_date.strftime('%Y%m%d')}.csv" }
 
     before do
-      FakeBoiler.stub_files([file_name])
-      FakeBoiler.stub_file(file_name, <<~CSV)
+      FakeBoiler.stub_file file_name, <<~CSV
         Datum ;Zeit ;AT [°C];KT Ist [°C];
         #{measure_date.strftime('%d.%m.%Y')};#{measure_date.strftime('%H:%M:%S')};2,4;39,6;
       CSV
@@ -105,7 +101,7 @@ RSpec.describe 'measures:import', type: :task do
     let(:file_name) { "touch_20210214.csv" }
 
     before do
-      FakeBoiler.stub_files([file_name])
+      FakeBoiler.stub_file file_name
       create :importation, file_name: file_name
       task.execute from: FakeBoiler.url
     end
@@ -114,20 +110,9 @@ RSpec.describe 'measures:import', type: :task do
   end
 
   context 'when many measure files are available' do
-    let(:file_name1) { 'touch_20201208.csv' }
-    let(:file_name2) { 'touch_20201209.csv' }
-
     before do
-      FakeBoiler.stub_files([file_name1, file_name2])
-      FakeBoiler.stub_file(file_name1, <<~CSV)
-        Datum ;Zeit ;AT [°C];KT Ist [°C];
-        08.12.2020;00:03:24;2,4;39,6;
-      CSV
-      FakeBoiler.stub_file(file_name2, <<~CSV)
-        Datum ;Zeit ;AT [°C];KT Ist [°C];
-        09.12.2020;00:03:24;2,4;39,6;
-      CSV
-
+      FakeBoiler.stub_measure_file
+      FakeBoiler.stub_measure_file
       task.execute from: FakeBoiler.url
     end
 
@@ -135,10 +120,8 @@ RSpec.describe 'measures:import', type: :task do
   end
 
   context 'when a measure files is available for today' do
-    let(:file_name) { "touch_#{Time.zone.today.strftime('%Y%m%d')}.csv" }
-
     before do
-      FakeBoiler.stub_files([file_name])
+      FakeBoiler.stub_measure_file date: Time.zone.today
       task.execute from: FakeBoiler.url
     end
 
@@ -160,8 +143,7 @@ RSpec.describe 'measures:import', type: :task do
 
     before do
       measure
-      FakeBoiler.stub_files([file_name])
-      FakeBoiler.stub_file(file_name, <<~CSV)
+      FakeBoiler.stub_file file_name, <<~CSV
         Datum ;Zeit ;AT [°C];KT Ist [°C];
         08.12.2020;00:03:24;2,4;39,6;
       CSV
@@ -170,20 +152,18 @@ RSpec.describe 'measures:import', type: :task do
     end
 
     it { expect(importation).to exists }
-    it { expect(measure.send(metric.column_name)).to eq(10) }
+    it { expect(measure.reload.send(metric.column_name)).to eq(10) }
   end
 
   context 'when a measure file contains empty line' do
     let(:file_name) { 'touch_20201208.csv' }
 
     before do
-      FakeBoiler.stub_files([file_name])
-      FakeBoiler.stub_file(file_name, <<~CSV)
+      FakeBoiler.stub_file file_name, <<~CSV
         Datum ;Zeit ;AT [°C];KT Ist [°C];
         10.12.2020;00:03:24;2,4;39,6;
 
       CSV
-
       task.execute from: FakeBoiler.url
     end
 
@@ -194,13 +174,11 @@ RSpec.describe 'measures:import', type: :task do
     let(:file_name) { 'touch_20201208.csv' }
 
     before do
-      FakeBoiler.stub_files([file_name])
-      FakeBoiler.stub_file(file_name, <<~CSV)
+      FakeBoiler.stub_file file_name, <<~CSV
         Datum ;Zeit ;AT [°C];Unknown;
         10.12.2020;00:03:24;2,4;20;
         10.12.2020;00:04:24;1,2;19;
       CSV
-
       task.execute from: FakeBoiler.url
     end
 
@@ -210,37 +188,27 @@ RSpec.describe 'measures:import', type: :task do
   end
 
   context 'when many measure files contains unknown columns' do
-    let(:file_name1) { 'touch_20201208.csv' }
-    let(:file_name2) { 'touch_20201209.csv' }
-
     before do
-      FakeBoiler.stub_files([file_name1, file_name2])
-      FakeBoiler.stub_file(file_name1, <<~CSV)
+      FakeBoiler.stub_file "touch_20201208.csv", <<~CSV
         Datum ;Zeit ;AT [°C];Unknown;
         08.12.2020;00:03:24;2,4;20;
       CSV
-      FakeBoiler.stub_file(file_name2, <<~CSV)
+      FakeBoiler.stub_file "touch_20201209.csv", <<~CSV
         Datum ;Zeit ;AT [°C];Unknown;
         09.12.2020;00:03:24;2,4;20;
       CSV
-
       task.execute from: FakeBoiler.url
     end
 
     it { expect(Rails.logger).to have_received(:warn).with(/Unknown metric column 'Unknown'/).twice }
   end
 
-  context 'when measure file previously failed to be imported' do
+  context 'when retrying file importation after failure' do
     let(:file_name) { "touch_20200714.csv" }
 
     before do
       create :importation, :failed, file_name: file_name
-      FakeBoiler.stub_files([file_name])
-      FakeBoiler.stub_file(file_name, <<~CSV)
-        Datum ;Zeit ;AT [°C];KT Ist [°C];
-        08.12.2020;00:03:24;2,4;39,6;
-      CSV
-
+      FakeBoiler.stub_file file_name, MeasuresFileContent.build
       task.execute from: FakeBoiler.url
     end
 
@@ -252,8 +220,7 @@ RSpec.describe 'measures:import', type: :task do
     let(:file_name) { "touch_20200714.csv" }
 
     before do
-      FakeBoiler.stub_files([file_name])
-      FakeBoiler.stub_file(file_name, <<~CSV)
+      FakeBoiler.stub_file file_name, <<~CSV
         Datum ;Zeit ;AT [°C];KT Ist [°C];
         08.12.2020;00:03:24;2,4;39,6;
         invalid date format;00:03:24;2,4;39,6;
@@ -261,32 +228,37 @@ RSpec.describe 'measures:import', type: :task do
       CSV
 
       task.execute from: FakeBoiler.url
+    rescue ImportationError
+      # Expected exception
     end
 
     it { expect(Importation.count).to eq(1) }
     it { expect(Importation.take).to be_failed }
     it { expect(Rails.logger).to have_received(:error).with(/Cannot parse row #3/).once }
+    it { expect(Rails.logger).to have_received(:info).with("0/1 files imported successfully").once }
     it { expect(ActionMailer::Base.deliveries.count).to eq(1) }
   end
 
-  context 'when a file importation failed' do
+  context 'when many file importation failed' do
     subject(:execute_task) { task.execute(from: FakeBoiler.url) }
 
     before do
-      file_name1 = "touch_20200714.csv"
-      FakeBoiler.stub_files([file_name1])
-      FakeBoiler.stub_file(file_name1, <<~CSV)
-        Datum ;Zeit ;AT [°C];KT Ist [°C];
-        08.12.2020;00:03:24;2,4;39,6;
-      CSV
-      file_name2 = "touch_20200714.csv"
-      FakeBoiler.stub_files([file_name2])
-      FakeBoiler.stub_file(file_name2, <<~CSV)
-        Datum ;Zeit ;AT [°C];KT Ist [°C];
-        invalid date format;00:03:24;2,4;39,6;
-      CSV
+      FakeBoiler.stub_measure_file content: MeasuresFileContent.build_invalid
+      FakeBoiler.stub_measure_file content: MeasuresFileContent.build_invalid
     end
 
-    it { expect { execute_task }.to raise_error(ImportationError, "1 importation failed") }
+    it { expect { execute_task }.to raise_error(ImportationError, "2 importation failed") }
+  end
+
+  context 'when several files imported and some has failed' do
+    before do
+      FakeBoiler.stub_measure_file content: MeasuresFileContent.build
+      FakeBoiler.stub_measure_file content: MeasuresFileContent.build_invalid
+      task.execute(from: FakeBoiler.url)
+    rescue ImportationError
+      # Expected exception
+    end
+
+    it { expect(Rails.logger).to have_received(:info).with("1/2 files imported successfully").once }
   end
 end
