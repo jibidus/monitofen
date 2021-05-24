@@ -18,7 +18,7 @@
     "vue-loader": "^15.9.5",
     "vue-router": "^3.5.1",
     "vue-template-compiler": "^2.6.12",
-    "vue-turbolinks": "^2.1.0",
+    "vue-turbolinks": "^2.2.2",
     "vuetify": "^2.4.11"
   },
   "version": "0.1.0",
