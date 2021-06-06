@@ -9,13 +9,13 @@ RSpec.describe CsvMetricMapper do
 
     it { is_expected.to eq(external_temperature) }
 
-    describe 'when unknown column' do
+    context 'when unknown column' do
       let(:column_name) { 'Unknown' }
 
       it { is_expected.to be_nil }
     end
 
-    describe 'when metric does not exist' do
+    context 'when metric does not exist' do
       before { external_temperature.destroy! }
 
       # rubocop:disable RSpec/NamedSubject
