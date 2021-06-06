@@ -1,7 +1,5 @@
 # Monitofen [![Build Status][ci-image]][ci] [![Code Climate][grade-image]][grade]
 
-:warning: Under development
-
 ## What is monitofen?
 
 Monitofen is used to **monitor** measures of an **Okofen boiler**.
