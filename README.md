@@ -45,12 +45,12 @@ rails "measures:import[<measures file path>]"
 - [ ] Make importation rake task fail if something's wrong  
 - [ ] Front: use kebab-case syntax for custom components in templates  
 - [ ] Front: filter measures by time period
-- [ ] Backend: limit measures result count 
 - [ ] Migrate to TypeScript
 - [ ] Dev: front auto-reload
 - [ ] Dev: move stats floating div on the right (and breakpoint on bottom right) 
 - [ ] Vuetify dark theme
-- [ ] Front tests: replace RSpec style by JUnit style 
+- [ ] Front tests: replace RSpec style by JUnit style
+- [ ] Use Context when necessary
 - [ ] Use https://github.com/djezzzl/factory_trace
 - [ ] i18n
 

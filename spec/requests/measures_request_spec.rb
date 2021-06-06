@@ -38,10 +38,39 @@ RSpec.describe "Measures", type: :request do
   describe "when measures in requested time period" do
     let!(:from_measure) { create(:measure, { date: from }) }
     let!(:in_measure) { create(:measure, { date: from + 2.hours }) }
+    let!(:to_measure) { create(:measure, { date: to }) }
 
     before { get(metric_measures_path(metric), xhr: true, params: { from: from.to_s, to: to.to_s }) }
 
     it { expect(json_response).not_to be_empty }
     it { expect(json_response.map { |json| json['id'] }).to include(from_measure.id, in_measure.id) }
+    it { expect(json_response.map { |json| json['id'] }).not_to include(to_measure.id) }
+  end
+
+  describe "order" do
+    let!(:measure3) {create(:measure, { date: from + 3.hours })}
+    let!(:measure1) {create(:measure, { date: from + 1.hour })}
+    let!(:measure2) {create(:measure, { date: from + 2.hours })}
+
+    before { get(metric_measures_path(metric), xhr: true, params: { from: from.to_s, to: to.to_s }) }
+
+    it { expect(json_response.map { |json| json['id'] }).to eq([measure1.id, measure2.id, measure3.id]) }
+  end
+
+  context "when too many measures in requested time period" do
+    before do
+      @original_max_returned_measures = Rails.configuration.max_returned_measures
+      Rails.configuration.max_returned_measures = 2
+
+      create(:measure, { date: from + 1.hour })
+      create(:measure, { date: from + 2.hours })
+      create(:measure, { date: from + 3.hours })
+      get(metric_measures_path(metric), xhr: true, params: { from: from.to_s, to: to.to_s })
+    end
+
+    after { Rails.configuration.max_returned_measures = @original_max_returned_measures }
+
+    it { expect(json_response).not_to be_empty }
+    it { expect(json_response).to have_exactly(2).items }
   end
 end
