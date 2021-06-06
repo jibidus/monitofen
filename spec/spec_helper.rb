@@ -5,6 +5,7 @@ end
 
 require 'webmock/rspec'
 require 'require_all'
+require 'rspec/collection_matchers'
 
 require_rel 'support'
 

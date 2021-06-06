@@ -2,6 +2,8 @@ class MeasuresController < ApplicationController
   def index
     metric = Metric.find(params[:metric_id])
     json = Measure.where(date: from_param..to_param)
+                  .limit(Rails.configuration.max_returned_measures)
+                  .order(date: :asc)
                   .map { |m| { id: m.id, date: m.date, value: m[metric.column_name] } }
     render json: json
   end

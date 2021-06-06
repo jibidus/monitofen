@@ -66,11 +66,12 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
+  gem 'database_cleaner-active_record'
+  gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
   # Mock HTTP requests
-  gem 'database_cleaner-active_record'
   gem 'webmock'
 end
 

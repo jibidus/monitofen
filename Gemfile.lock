@@ -224,6 +224,8 @@ GEM
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
       rspec-mocks (~> 3.10.0)
+    rspec-collection_matchers (1.2.0)
+      rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.10.0)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.0)
@@ -368,6 +370,7 @@ DEPENDENCIES
   rails (~> 6.1.0)
   rails_best_practices (~> 1.20)
   require_all (~> 3.0)
+  rspec-collection_matchers
   rspec-rails (~> 4.0.1)
   rubocop
   rubocop-performance
