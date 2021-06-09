@@ -40,7 +40,6 @@ rails "measures:import[<measures file path>]"
 ## TODO
 
 - [ ] Front: use kebab-case syntax for custom components in templates
-- [ ] Make importation rake task fail if something's wrong  
 - [ ] Front: use kebab-case syntax for custom components in templates  
 - [ ] Front: filter measures by time period
 - [ ] Migrate to TypeScript
