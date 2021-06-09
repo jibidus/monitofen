@@ -254,11 +254,16 @@ RSpec.describe 'measures:import', type: :task do
     before do
       FakeBoiler.stub_measure_file content: MeasuresFileContent.build
       FakeBoiler.stub_measure_file content: MeasuresFileContent.build_invalid
-      task.execute(from: FakeBoiler.url)
-    rescue ImportationError
-      # Expected exception
     end
 
-    it { expect(Rails.logger).to have_received(:info).with("1/2 files imported successfully").once }
+    it 'throws exception' do
+      expect { task.execute(from: FakeBoiler.url) }.to raise_error(ImportationError)
+    end
+
+    it 'logs importation status' do
+      task.execute from: FakeBoiler.url
+    rescue ImportationError
+      expect(Rails.logger).to have_received(:info).with("1/2 files imported successfully").once
+    end
   end
 end
