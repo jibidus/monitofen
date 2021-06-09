@@ -104,6 +104,8 @@ GEM
     factory_bot_rails (6.1.0)
       factory_bot (~> 6.1.0)
       railties (>= 5.0.0)
+    factory_trace (0.4.1)
+      factory_bot (>= 4.0)
     ffi (1.13.1)
     formatador (0.2.5)
     globalid (0.4.2)
@@ -359,6 +361,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   database_cleaner-active_record
   factory_bot_rails (~> 6.1)
+  factory_trace
   guard-rspec
   jbuilder (~> 2.7)
   listen (~> 3.3)
