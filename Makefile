@@ -4,7 +4,7 @@ help:
 test: test-back test-front ## Test application (backend and frontend)
 
 test-back: ## Test backend
-	bundle exec rspec
+	FB_TRACE=1 bundle exec rspec
 
 test-front: ## Test frontend
 	yarn test
