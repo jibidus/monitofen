@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
@@ -84,8 +84,8 @@ gem "require_all", "~> 3.0"
 
 gem 'sendgrid-ruby'
 
-gem 'validb'
+gem 'validb', '>= 2.0.0'
 
-gem "model_validator", ">= 1.0.0"
+gem "model_validator", ">= 1.2.2"
 
 gem "unicorn", "~> 6.0"
