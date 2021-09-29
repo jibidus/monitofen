@@ -4,15 +4,15 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
+gem 'sass-rails', '>= 6.0.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
+gem 'webpacker', '~> 5.2', '>= 5.2.1'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -40,7 +40,7 @@ gem "whenever", "~> 1.0"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails', "~> 6.1"
+  gem 'factory_bot_rails', '~> 6.1', '>= 6.1.0'
   gem 'factory_trace'
   gem 'rspec-rails', '~> 4.0.1'
   gem 'rubocop', require: false
@@ -66,26 +66,26 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 3.34.0'
+  gem 'capybara', '>= 3.35.3'
   gem 'database_cleaner-active_record'
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem 'webdrivers', '>= 4.4.1'
   # Mock HTTP requests
   gem 'webmock', '>= 3.10.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
-gem "nokogumbo", "~> 2.0"
+gem "nokogumbo", "~> 2.0", ">= 2.0.4"
 
 gem "require_all", "~> 3.0"
 
 gem 'sendgrid-ruby'
 
-gem 'validb'
+gem 'validb', '>= 2.0.0'
 
-gem "model_validator", ">= 1.0.0"
+gem "model_validator", ">= 1.2.2"
 
 gem "unicorn", "~> 6.0"
