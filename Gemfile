@@ -84,7 +84,7 @@ gem "require_all", "~> 3.0"
 
 gem 'sendgrid-ruby'
 
-gem 'validb'
+gem 'validb', '>= 2.0.0'
 
 gem "model_validator", ">= 1.0.0"
 
