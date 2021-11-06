@@ -91,4 +91,7 @@ gem "model_validator", ">= 1.2.2"
 
 gem "unicorn", "~> 6.0", platform: :ruby
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+platforms :x64_mingw do
+  gem 'tzinfo-data'
+  gem 'wdm', '>= 0.1.0'
+end
