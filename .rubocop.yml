@@ -22,6 +22,8 @@ Style/Documentation:
   Exclude:
     - '**/*.gemspec'
     - '**/*_spec.rb'
+Layout/EndOfLine:
+  EnforcedStyle: lf
 RSpec/DescribeClass:
   IgnoredMetadata:
     type:
