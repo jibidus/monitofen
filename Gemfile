@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
@@ -88,4 +89,6 @@ gem 'validb', '>= 2.0.0'
 
 gem "model_validator", ">= 1.2.2"
 
-gem "unicorn", "~> 6.0"
+gem "unicorn", "~> 6.0", platform: :ruby
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
