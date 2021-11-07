@@ -9,17 +9,23 @@ import moment from "moment-timezone";
 import MockDate from 'mockdate'
 import axios from "axios";
 import {DEFAULT_TIMEZONE} from "../../support/constants";
+import { createLocalVue } from '@vue/test-utils';
+
 
 const ui = {
     placeholder: byText('No measure'),
     chart: byTestId('chart')
-}
+};
 
 describe("<MeasuresChartWrapper/>", function () {
+    let localVue;
+    beforeEach(() => {
+        localVue = createLocalVue();
+    });
     describe('without any measure', () => {
         beforeEach(async () => {
             axios.get.mockResolvedValue(buildResponse.Successful([]));
-            await renderCmp(MeasuresChartWrapper, {props: {metric: buildMetric()}});
+            await renderCmp(MeasuresChartWrapper, {localVue, props: {metric: buildMetric()}});
         });
         it('shows placeholder', () => {
             expect(ui.placeholder.get()).toBeVisible();
@@ -29,7 +35,7 @@ describe("<MeasuresChartWrapper/>", function () {
         beforeEach(async () => {
             MockDate.set('2021-02-16T22:26:51+01:00');
             axios.get.mockResolvedValue(buildResponse.Successful([buildMeasure(), buildMeasure(), buildMeasure()]));
-            await renderCmp(MeasuresChartWrapper, {props: {metric: buildMetric()}});
+            await renderCmp(MeasuresChartWrapper, {localVue, props: {metric: buildMetric()}});
             MockDate.reset();
         });
         it('requests measures for last 24h', () => {
@@ -52,7 +58,7 @@ describe("<MeasuresChartWrapper/>", function () {
             axios.get.mockResolvedValue(buildResponse.Successful([buildMeasure()]));
             const from = moment.tz("2020-04-10T10:20:30+02:00", DEFAULT_TIMEZONE);
             const to = moment.tz("2020-04-11T10:20:30+02:00", DEFAULT_TIMEZONE);
-            await renderCmp(MeasuresChartWrapper, {props: {metric: buildMetric(), from, to}});
+            await renderCmp(MeasuresChartWrapper, {localVue, props: {metric: buildMetric(), from, to}});
             let firstParamCall = axios.get.mock.calls[0][1].params;
             expect(firstParamCall.from).toEqual("2020-04-10 10:20:30 +0200");
             expect(firstParamCall.to).toEqual( "2020-04-11 10:20:30 +0200");

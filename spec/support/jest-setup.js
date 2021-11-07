@@ -4,6 +4,7 @@ import Vuetify from 'vuetify'
 import moment from 'moment-timezone'
 import {DEFAULT_TIMEZONE} from "./constants";
 import axios from "axios";
+import 'jest-canvas-mock';
 
 Vue.use(Vuetify)
 moment.tz.setDefault(DEFAULT_TIMEZONE);
@@ -22,6 +23,23 @@ jest.mock('axios', () => ({
     CancelToken: {source: jest.fn()},
     get: jest.fn(),
 }));
+
+jest.mock('use-resize-observer', () => ({
+    __esModule: true,
+    default: jest.fn().mockImplementation(() => ({
+        observe: jest.fn(),
+        unobserve: jest.fn(),
+        disconnect: jest.fn(),
+    })),
+}));
+
+window.ResizeObserver =
+    window.ResizeObserver ||
+    jest.fn().mockImplementation(() => ({
+        disconnect: jest.fn(),
+        observe: jest.fn(),
+        unobserve: jest.fn(),
+    }));
 
 var cancelTokenId = 0;
 beforeEach(() => {

@@ -4,16 +4,16 @@ import {mount} from "@vue/test-utils";
 import moment from "moment-timezone";
 
 describe('<MeasuresChart>', () => {
-    let currentTimezeone ;
+    let previousTimezeone;
 
-    beforeEach(() => currentTimezeone= moment.tz.guess());
-    afterEach(() => moment.tz.zone(currentTimezeone))
+    beforeEach(() => previousTimezeone = moment.tz.guess());
+    afterEach(() => moment.tz.zone(previousTimezeone))
 
     it('converts dates to current timezone', () => {
         let measure = buildMeasure({date: "2021-05-18T16:00:00.000Z"});
         moment.tz.zone("Europe/Paris");
 
-        const wrapper = mount(MeasuresChart, {propsData:{measures: [measure]}});
+        const wrapper = mount(MeasuresChart, {propsData: {measures: [measure], metricLabel: "my metric"}});
 
         expect(wrapper.vm.parsedMeasures).toHaveLength(1);
         let parsedDate = wrapper.vm.parsedMeasures[0].date;
