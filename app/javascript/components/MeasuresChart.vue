@@ -1,82 +1,89 @@
 <template>
-  <div
-    id="chart"
-    ref="chart"
-    data-testid="chart"
-  />
+  <div class="chart-container">
+    <canvas
+        id="chart"
+        ref="chart"
+        data-testid="chart"
+    />
+  </div>
 </template>
 
 <script>
-import * as d3 from "d3";
+import Chart from "chart.js/auto";
 import moment from "moment-timezone";
+import 'chartjs-adapter-moment';
 
 export default {
   name: "MeasuresChart",
   props: {
     measures: {required: true, type: Array},
+    metricLabel: {required: true, type: String},
   },
   data() {
     return {
-      width: 750,
-      height: 400,
-      margin: {
-        top: 50,
-        right: 50,
-        left: 50,
-        bottom: 50,
-      },
-    }
+      chart: null
+    };
   },
   computed: {
     parsedMeasures() {
-      return this.measures.map(m => ({date: moment(m.date), value: m.value}))
+      return this.measures.map(m => ({
+        date: moment(m.date),
+        value: m.value
+      }));
     }
   },
   mounted() {
-    this.drawChart()
+    this.drawChart();
+  },
+  unmounted() {
+    this.chart.clear();
+    this.chart.destroy();
   },
   methods: {
     drawChart() {
-      const svg = d3.select(this.$refs.chart)
-        .append("svg")
-        .attr("width", this.width + this.margin.left + this.margin.right)
-        .attr("height", this.height + this.margin.top + this.margin.bottom)
-        .append("g")
-        .attr("transform",
-          "translate(" + this.margin.left + "," + this.margin.top + ")");
-
-      // Add X axis
-      // We get a function which map values to pixels according the axis
-      const x = d3.scaleTime()
-        // extent compute mininum and maximum
-        .domain(d3.extent(this.parsedMeasures, m => m.date))
-        .range([0, this.width]);
-      svg.append("g")
-        .attr("transform", "translate(0," + this.height + ")")
-        .call(d3.axisBottom(x));
-
-      // Add Y axis
-      const y = d3.scaleLinear()
-        .domain([0, d3.max(this.parsedMeasures, m => m.value)])
-        .range([this.height, 0]);
-      svg.append("g")
-        .call(d3.axisLeft(y));
-
-      // Add the line
-      svg.append("path")
-        .datum(this.parsedMeasures)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 1.5)
-        .attr("d", d3.line()
-          .x(m => x(m.date))
-          .y(m => y(m.value))
-        )
+      const ctx = this.$refs.chart.getContext('2d');
+      this.chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: this.parsedMeasures.map(m => m.date),
+          datasets: [
+            {
+              label: this.metricLabel,
+              data: this.measures.map(m => m.value),
+              fill: false,
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          locale: 'en-EN',
+          plugins: {
+            legend: {
+              display: false,
+            }
+          },
+          scales: {
+            xAxes: {
+              type: 'time',
+              time: {
+                displayFormats: {
+                  hour: 'ha'
+                }
+              },
+            }
+          }
+        }
+      });
     }
   }
 }
 </script>
 
 <style scoped>
-
+.chart-container {
+  min-height: 25rem
+}
 </style>

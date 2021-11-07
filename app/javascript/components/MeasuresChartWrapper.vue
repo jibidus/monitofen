@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Spinner v-if="loading" />
+    <Spinner v-if="loading"/>
     <Error v-else-if="error">
       {{ error }}
     </Error>
@@ -12,7 +12,10 @@
     </div>
     <div v-else>
       {{ measures.length }} measure(s) found
-      <MeasuresChart :measures="measures" />
+      <MeasuresChart
+        :measures="measures"
+        :metric-label="metric.label"
+      />
     </div>
   </div>
 </template>
