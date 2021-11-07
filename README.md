@@ -50,7 +50,7 @@ rails "measures:import[<measures file path>]"
 
 ## Additional documentation
 
-- [dev tips](doc/dev.md)
+- [how to contribute?](doc/dev.md)
 
 [ci-image]: https://github.com/jibidus/monitofen/actions/workflows/ci.yml/badge.svg
 [ci]: https://github.com/jibidus/monitofen/actions/workflows/ci.yml
