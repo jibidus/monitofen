@@ -16,6 +16,16 @@ It is unfortunate, since `Okovision` brings a lot of interesting features.
 - Daily import of measurements
 - Visualize measures by selecting a day and a metric
 
+## 🐳 How have a preview with Docker?
+
+`make docker-start`
+
+Then, go to [http://localhost:3000](http://localhost:3000), wait a few seconds (or more in macOS or Windows) until frontend is "compiled", and voila!
+
+Note: database was populated with fake outdoor temperature for last days.
+
+Note: press `Ctrl+C` to quit.
+
 ## How to install?
 
 Here is a tutorial to [install Monitofen on Raspberry Pi OS Lite](doc/infra.md).
@@ -44,6 +54,7 @@ rails "measures:import[<measures file path>]"
 
 ## TODO
 
+- [ ] Docker env: reduce docker image size
 - [ ] Check metric labels are translated
 - [ ] Make preview easier (Heroku with fake data? Docker with fake or real data?)
 - [ ] Front: use kebab-case syntax for custom components in templates  
