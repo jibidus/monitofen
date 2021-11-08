@@ -44,6 +44,7 @@ rails "measures:import[<measures file path>]"
 
 ## TODO
 
+- [ ] Check metric labels are translated
 - [ ] Make preview easier (Heroku with fake data? Docker with fake or real data?)
 - [ ] Front: use kebab-case syntax for custom components in templates  
 - [ ] Front: filter measures by time period
@@ -53,6 +54,7 @@ rails "measures:import[<measures file path>]"
 - [ ] Vuetify dark theme
 - [ ] Front tests: replace RSpec style by JUnit style
 - [ ] i18n
+- [ ] Integrate linters with [reviewdog](https://github.com/reviewdog/reviewdog)
 
 ## Additional documentation
 
