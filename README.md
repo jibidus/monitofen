@@ -44,6 +44,7 @@ rails "measures:import[<measures file path>]"
 
 ## TODO
 
+- [ ] Make preview easier (Heroku with fake data? Docker with fake or real data?)
 - [ ] Front: use kebab-case syntax for custom components in templates  
 - [ ] Front: filter measures by time period
 - [ ] Migrate to TypeScript
