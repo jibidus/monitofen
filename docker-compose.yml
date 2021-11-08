@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: developement
+      MONITOFEN_DB_HOST: "localhost"
+      MONITOFEN_DB_USERNAME:
+      MONITOFEN_DB_PASSWORD: password
+      MONITOFEN_DB_NAME: monitofen
+      MONITOFEN_BOILER_BASE_URL: <boiler base url (ex:http://192.168.1.2:80)>
+      SENDGRID_API_KEY: "<send grid API key>"
+    depends_on:
+      - db

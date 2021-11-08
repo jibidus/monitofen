@@ -46,3 +46,10 @@ deploy: ## Deploy last version locally
 	sudo service unicorn_monitofen stop
 	sudo service unicorn_monitofen start
 	echo "🎉 Deployment successful!"
+
+docker-rebuild:
+	docker image build --no-cache -t monitofen .
+
+docker-start:
+	docker image build -t monitofen .
+	docker run --rm -it -v `pwd`:/monitofen:cached -p 3000:3000 monitofen
