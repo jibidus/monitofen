@@ -11,6 +11,11 @@ Because I did not manage to install it in a Docker container, and when I tried t
 
 It is unfortunate, since `Okovision` brings a lot of interesting features.
 
+## What can we do with Monitofen?
+
+- Daily import of measurements
+- Visualize measures by selecting a day and a metric
+
 ## How to install?
 
 Here is a tutorial to [install Monitofen on Raspberry Pi OS Lite](doc/infra.md).
