@@ -20,6 +20,10 @@ services:
       MONITOFEN_DB_PASSWORD: password
       MONITOFEN_DB_NAME: monitofen
       MONITOFEN_BOILER_BASE_URL: <boiler base url (ex:http://192.168.1.2:80)>
-      SENDGRID_API_KEY: "<send grid API key>"
+      SMTP_USERNAME: ???
+      SMTP_PASSWORD: ???
+      SMTP_DOMAIN: ???
+      SMTP_HOST: ???
+      SMTP_PORT: ???
     depends_on:
       - db
