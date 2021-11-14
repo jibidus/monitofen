@@ -11,4 +11,11 @@ namespace :measures do
     Rails.logger.info "#{result.successful_importations}/#{result.all_importations} files imported successfully"
     result.raise_error_if_any
   end
+
+  desc "Delete all measures"
+  task :reset, [:from] => [:environment] do |_, _|
+    count = Measure.count
+    Importation.destroy_all
+    Rails.logger.info "#{count} measure(s) deleted"
+  end
 end

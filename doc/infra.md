@@ -1,4 +1,17 @@
-# How to install Monitofen on Raspberry Pi OS Lite?
+# How to run Monitofen with a Docker 🐳?
+
+1. Run `make docker-start` where `http://[boiler_url]` is the http base url to your boiler (ex: `http://192.168.1.2:80`).
+
+2. Setup database with `make docker-db-setup`
+
+Now, you can:
+
+- Browse `http://localhost:3000` to see fake data on last 3 days.
+- Or import real measures from your boiler with `make docker-import` before.
+
+Note: `make docker-cleanup` can be useful to cleanup all docker images.
+
+# How to install Monitofen on Raspberry Pi OS Lite 🍓?
 
 ## Overview
 
