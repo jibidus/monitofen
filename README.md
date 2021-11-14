@@ -49,8 +49,7 @@ rails "measures:import[<measures file path>]"
 ## TODO
 
 - [ ] Docker env: reduce docker image size (see https://github.com/progapandist/anycable_rails_demo/blob/master/.dockerdev/Dockerfile.multi)
-- [ ] Check metric labels are translated
-- [ ] Make preview easier (Heroku with fake data? Docker with fake or real data?)
+- [ ] Docker env: test image & docker-compose
 - [ ] Front: use kebab-case syntax for custom components in templates  
 - [ ] Front: filter measures by time period
 - [ ] Migrate to TypeScript
