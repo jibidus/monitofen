@@ -11,26 +11,20 @@ Because I did not manage to install it in a Docker container, and when I tried t
 
 It is unfortunate, since `Okovision` brings a lot of interesting features.
 
-## What can we do with Monitofen?
+## What can I do with Monitofen?
 
 - Daily import of measurements
 - Visualize measures by selecting a day and a metric
 
-## 🐳 How have a preview with Docker?
+## 🐳 How to test Monitofen?
 
-`make docker-start`
-
-Then, go to [http://localhost:3000](http://localhost:3000), wait a few seconds (or more in macOS or Windows) until frontend is "compiled", and voila!
-
-Note: database was populated with fake outdoor temperature for last days.
-
-Note: press `Ctrl+C` to quit.
+See [Docker setup](doc/infra.md).
 
 ## How to install?
 
 Here is a tutorial to [install Monitofen on Raspberry Pi OS Lite](doc/infra.md).
 
-## How to deploy new version?
+## How to deploy new version once installed?
 
 ```
 make deploy
@@ -54,7 +48,7 @@ rails "measures:import[<measures file path>]"
 
 ## TODO
 
-- [ ] Docker env: reduce docker image size
+- [ ] Docker env: reduce docker image size (see https://github.com/progapandist/anycable_rails_demo/blob/master/.dockerdev/Dockerfile.multi)
 - [ ] Check metric labels are translated
 - [ ] Make preview easier (Heroku with fake data? Docker with fake or real data?)
 - [ ] Front: use kebab-case syntax for custom components in templates  
@@ -66,6 +60,8 @@ rails "measures:import[<measures file path>]"
 - [ ] Front tests: replace RSpec style by JUnit style
 - [ ] i18n
 - [ ] Integrate linters with [reviewdog](https://github.com/reviewdog/reviewdog)
+- [ ] Harmonize NodeJS versions (infra doc VS Dockerfile VS ci)
+- [ ] Bug: measures importation when 1 file already imported (output is wrong)
 
 ## Additional documentation
 
