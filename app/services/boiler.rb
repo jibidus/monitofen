@@ -15,4 +15,8 @@ class Boiler
       [BoilerLocalFile.new(filename, @base_url_or_file_path)]
     end
   end
+
+  def measures_files
+    files.select(&:measures?)
+  end
 end
