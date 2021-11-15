@@ -147,7 +147,7 @@ RSpec.describe 'measures:import', type: :task do
     it { expect(Rails.logger).to have_received(:info).with(/1 skipped/).once }
   end
 
-  context 'when a measure file contains empty line' do
+  context 'when a measure file ends with empty line' do
     let(:file_name) { 'touch_20201208.csv' }
 
     before do
