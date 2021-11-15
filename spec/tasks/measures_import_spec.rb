@@ -97,18 +97,6 @@ RSpec.describe 'measures:import', type: :task do
     it { expect(ActionMailer::Base.deliveries.count).to eq(1) }
   end
 
-  context 'when measure file was already imported' do
-    let(:file_name) { "touch_20210214.csv" }
-
-    before do
-      FakeBoiler.stub_file file_name
-      create :importation, file_name: file_name
-      task.execute from: FakeBoiler.url
-    end
-
-    it { expect(Importation.count).to eq(1) }
-  end
-
   context 'when many measure files are available' do
     before do
       FakeBoiler.stub_measure_file
@@ -119,7 +107,7 @@ RSpec.describe 'measures:import', type: :task do
     it { expect(Importation.count).to eq(2) }
   end
 
-  context 'when a measure files is available for today' do
+  context 'when a measure file is available for today' do
     before do
       FakeBoiler.stub_measure_file date: Time.zone.today
       task.execute from: FakeBoiler.url
