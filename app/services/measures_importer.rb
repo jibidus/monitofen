@@ -5,22 +5,36 @@ require 'set'
 class MeasuresImporter
   def initialize(boiler_base_url_or_file_path)
     @boiler = Boiler.new(boiler_base_url_or_file_path)
+    @stats = ImportStats.new
   end
 
   def import_all
-    files = @boiler.files
-    Rails.logger.info "#{files.count} measure file(s) found"
-    importations = []
-    files.select(&:measures?)
-         .select(&:complete?)
-         .reject(&:imported?)
-         .each do |file|
-      importations << Importation.import(file.name) { |imp| import!(file, imp) }
+    files_to_import do |file|
+      importation = Importation.import(file.name) { |imp| import!(file, imp) }
+      @stats.importations << importation
     end
-    ImportationResult.new importations
+    @stats
   end
 
   private
+
+  SKIP_RULES = {
+    "not complete" => ->(file) { file.incomplete? },
+    "already imported" => ->(file) { file.already_imported? }
+  }.freeze
+
+  def files_to_import
+    @boiler.measures_files.each do |file|
+      break unless SKIP_RULES.each do |reason, predicate|
+        if predicate.call(file)
+          @stats.skip file.name, reason
+          break
+        end
+      end
+
+      yield file
+    end
+  end
 
   def import!(file, importation)
     Rails.logger.info "Import file #{file.name}…"
@@ -36,17 +50,44 @@ class MeasuresImporter
   end
 end
 
-class ImportationResult
-  attr_reader :all_importations, :successful_importations
+class ImportStats
+  attr_accessor :importations
 
-  def initialize(importations)
-    @all_importations = importations.size
-    @successful_importations = importations.filter(&:successful?).size
-    @files_in_error = @all_importations - @successful_importations
+  def initialize
+    @importations = []
+    @skipped_files = []
+  end
+
+  def skip(file_name, reason)
+    Rails.logger.info "File \"#{file_name}\" skipped (#{reason})"
+    @skipped_files << file_name
+  end
+
+  def total
+    @importations.size
+  end
+
+  def successful
+    @importations.count(&:successful?)
+  end
+
+  def failed
+    @importations.size - successful
+  end
+
+  def skipped
+    @skipped_files.size
   end
 
   def raise_error_if_any
-    raise ImportationError, @files_in_error if @files_in_error.positive?
+    raise ImportationError, failed if failed.positive?
+  end
+
+  def log
+    output = "#{successful}/#{total} files imported successfully."
+    output << "\n#{failed} in error." if failed.positive?
+    output << "\n#{skipped} skipped." if skipped.positive?
+    Rails.logger.info output
   end
 end
 

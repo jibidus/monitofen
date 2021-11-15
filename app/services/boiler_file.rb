@@ -14,15 +14,15 @@ class BoilerFile
     /\.csv$/ =~ @path && @name != HEADER_FILE
   end
 
-  def complete?
-    date != Time.zone.today
+  def incomplete?
+    date >= Time.zone.today
   end
 
   def date
     Date.parse(@name[/\d{8}/, 0])
   end
 
-  def imported?
+  def already_imported?
     Importation.exists? file_name: @name, status: :successful
   end
 
