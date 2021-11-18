@@ -2,6 +2,7 @@ require 'net/http'
 
 HEADER_FILE = 'titles.csv'.freeze
 
+# File exposed by a remote boiler
 class BoilerFile
   attr_reader :name
 
@@ -38,5 +39,18 @@ class BoilerFile
 
   def csv_content
     CsvFileContent.new(sanitized_content)
+  end
+
+  def import!(importation)
+    Rails.logger.info "Import file #{name}…"
+    start = Time.current
+    count = ApplicationRecord.transaction do
+      csv_content.import! do |measure|
+        measure.importation = importation
+      end
+    end
+    Rails.logger.info <<~MSG
+      File \"#{name}\" successfully imported with #{count} measure(s) in #{Time.current - start}s.
+    MSG
   end
 end

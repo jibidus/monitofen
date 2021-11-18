@@ -23,7 +23,7 @@ class Importation < ApplicationRecord
     status == :running
   end
 
-  def self.import(file_name)
+  def self.execute(file_name)
     importation = Importation.create!(file_name: file_name, status: :running)
     begin
       yield importation
