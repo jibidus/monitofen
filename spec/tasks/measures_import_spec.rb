@@ -125,7 +125,7 @@ RSpec.describe 'measures:import', type: :task do
     end
 
     it { expect(Rails.logger).to have_received(:info).with("File \"#{file_name}\" skipped (not complete)").once }
-    it { expect(Rails.logger).to have_received(:info).with(%r{0/0 files imported successfully.}).once }
+    it { expect(Rails.logger).to have_received(:info).with(%r{0/0 file\(s\) imported successfully.}).once }
     it { expect(Rails.logger).to have_received(:info).with(/1 skipped/).once }
   end
 
@@ -142,7 +142,7 @@ RSpec.describe 'measures:import', type: :task do
 
     it { expect(importation).to exists }
     it { expect(Rails.logger).to have_received(:info).with("File \"#{file_name}\" skipped (already imported)").once }
-    it { expect(Rails.logger).to have_received(:info).with(%r{0/0 files imported successfully.}).once }
+    it { expect(Rails.logger).to have_received(:info).with(%r{0/0 file\(s\) imported successfully.}).once }
     it { expect(Rails.logger).to have_received(:info).with(/1 skipped/).once }
   end
 
@@ -192,7 +192,7 @@ RSpec.describe 'measures:import', type: :task do
     end
 
     it { expect(Rails.logger).to have_received(:warn).with(/Unknown metric column 'Unknown'/).twice }
-    it { expect(Rails.logger).to have_received(:info).with("2/2 files imported successfully.").once }
+    it { expect(Rails.logger).to have_received(:info).with(%r{2/2 file\(s\) imported successfully.}).once }
   end
 
   context 'when retrying file importation after failure' do
@@ -206,7 +206,7 @@ RSpec.describe 'measures:import', type: :task do
 
     it { expect(Measure.count).to eq(1) }
     it { expect(Importation.where(file_name: file_name).count).to eq(2) }
-    it { expect(Rails.logger).to have_received(:info).with("1/1 files imported successfully.").once }
+    it { expect(Rails.logger).to have_received(:info).with(%r{1/1 file\(s\) imported successfully.}).once }
   end
 
   context 'when bad measure file is available' do
@@ -228,7 +228,7 @@ RSpec.describe 'measures:import', type: :task do
     it { expect(Importation.count).to eq(1) }
     it { expect(Importation.take).to be_failed }
     it { expect(Rails.logger).to have_received(:error).with(/Cannot parse row #3/).once }
-    it { expect(Rails.logger).to have_received(:info).with(%r{0/1 files imported successfully.}).once }
+    it { expect(Rails.logger).to have_received(:info).with(%r{0/1 file\(s\) imported successfully.}).once }
     it { expect(ActionMailer::Base.deliveries.count).to eq(1) }
   end
 
@@ -240,7 +240,7 @@ RSpec.describe 'measures:import', type: :task do
       FakeBoiler.stub_measure_file content: MeasuresFileContent.build_invalid
     end
 
-    it { expect { execute_task }.to raise_error(ImportationError, "2 importation failed") }
+    it { expect { execute_task }.to raise_error(ImportationError, "2 importation(s) failed") }
   end
 
   context 'when several files imported and some has failed' do
@@ -256,7 +256,7 @@ RSpec.describe 'measures:import', type: :task do
     it 'logs importation status' do
       task.execute from: FakeBoiler.url
     rescue ImportationError
-      expect(Rails.logger).to have_received(:info).with(%r{1/2 files imported successfully.}).once
+      expect(Rails.logger).to have_received(:info).with(%r{1/2 file\(s\) imported successfully.}).once
     end
   end
 

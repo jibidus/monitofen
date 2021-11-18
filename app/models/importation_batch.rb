@@ -51,7 +51,7 @@ class ImportationBatch
 
   def stats_summary
     total = @success.size + @failed.size
-    output = "#{@success.size}/#{total} files imported successfully."
+    output = "#{@success.size}/#{total} file(s) imported successfully."
     output << "\n#{@failed.size} in error." if @failed.any?
     output << "\n#{@skipped.size} skipped." if @skipped.any?
     output
@@ -65,6 +65,6 @@ class ImportationError < StandardError
   end
 
   def message
-    "#{@count} importation failed"
+    "#{@count} importation(s) failed"
   end
 end
