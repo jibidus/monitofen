@@ -1,0 +1,1 @@
+RemoveUnusedMethodsInModelsCheck: { except_methods: ['BoilerFile#measures?'] }

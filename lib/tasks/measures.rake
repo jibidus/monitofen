@@ -7,9 +7,8 @@ namespace :measures do
       raise Rake::TaskArgumentError.new('Mandatory environment variable "MONITOFEN_BOILER_BASE_URL" not defined') # rubocop:disable Style/RaiseArgs
     end
 
-    stats = MeasuresImporter.new(base_url_or_file_path).import_all
-    stats.log
-    stats.raise_error_if_any
+    boiler = Boiler.new(base_url_or_file_path)
+    ImportationBatch.new(boiler.measures_files).run!
   end
 
   desc "Delete all measures"

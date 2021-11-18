@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'measures_importer'
 require 'csv_metric_mapper'
 require 'tempfile'
 
@@ -260,4 +259,8 @@ RSpec.describe 'measures:import', type: :task do
       expect(Rails.logger).to have_received(:info).with(%r{1/2 files imported successfully.}).once
     end
   end
+
+  # TODO: test logs are ordered by files
+  # TODO: test next files are imported even if 1 is skipped earlier
+  # TODO: No skip logs when 0
 end

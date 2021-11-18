@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'measures_importer'
 require 'csv_metric_mapper'
 require 'tempfile'
 
