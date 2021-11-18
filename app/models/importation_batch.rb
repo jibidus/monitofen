@@ -5,55 +5,59 @@ SKIP_RULES = {
 
 class ImportationBatch
   def initialize(files)
-    @all = files
-    @skipped = []
-    @success = []
-    @failed = []
+    @all_files = files
+    @skipped_files = []
+    @success_files = []
+    @failed_files = []
   end
 
   def run!
-    @all.each do |file|
+    @all_files.each do |file|
       break unless skip_if_not_importable(file)
 
-      importation = Importation.execute(file.name) do |imp|
-        file.import! imp
-      end
-      importation.successful? ? success(file) : failed(file)
+      import! file
     end
     Rails.logger.info stats_summary
-    raise ImportationError, @failed if @failed.any?
+    raise ImportationError, @failed_files if @failed_files.any?
   end
 
   private
 
+  def import!(file)
+    importation = Importation.execute(file.name) do |imp|
+      file.import! imp
+    end
+    importation.successful? ? add_successful(file) : add_failed(file)
+  end
+
   def skip_if_not_importable(file)
     SKIP_RULES.each do |reason, skip_predicate|
       if skip_predicate.call(file)
-        skip file, reason
+        add_skipped file, reason
         return false
       end
     end
     true
   end
 
-  def success(file)
-    @success << file
+  def add_successful(file)
+    @success_files << file
   end
 
-  def failed(file)
-    @failed << file
+  def add_failed(file)
+    @failed_files << file
   end
 
-  def skip(file, reason)
+  def add_skipped(file, reason)
     Rails.logger.info "File \"#{file.name}\" skipped (#{reason})"
-    @skipped << file
+    @skipped_files << file
   end
 
   def stats_summary
-    total = @success.size + @failed.size
-    output = "#{@success.size}/#{total} file(s) imported successfully."
-    output << "\n#{@failed.size} in error." if @failed.any?
-    output << "\n#{@skipped.size} skipped." if @skipped.any?
+    total = @success_files.size + @failed_files.size
+    output = "#{@success_files.size}/#{total} file(s) imported successfully."
+    output << "\n#{@failed_files.size} in error." if @failed_files.any?
+    output << "\n#{@skipped_files.size} skipped." if @skipped_files.any?
     output
   end
 end
@@ -61,7 +65,7 @@ end
 class ImportationError < StandardError
   def initialize(failed_files)
     @count = failed_files.size
-    super()
+    super
   end
 
   def message
