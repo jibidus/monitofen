@@ -57,7 +57,7 @@ rails "measures:import[<measures file path>]"
 - [ ] Dev: move stats floating div on the right (and breakpoint on bottom right) 
 - [ ] Vuetify dark theme
 - [ ] Front tests: replace RSpec style by JUnit style
-- [ ] i18n (start by metrics in english)
+- [ ] i18n (metrics label, graph infos... start with all in english)
 - [ ] Integrate linters with [reviewdog](https://github.com/reviewdog/reviewdog)
 - [ ] Harmonize NodeJS versions (infra doc VS Dockerfile VS ci)
 - [ ] Bug: measures importation when 1 file already imported (output is wrong)
