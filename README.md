@@ -48,6 +48,7 @@ rails "measures:import[<measures file path>]"
 
 ## TODO
 
+- [ ] s/Measure/Measurement
 - [ ] Docker env: reduce docker image size (see https://github.com/progapandist/anycable_rails_demo/blob/master/.dockerdev/Dockerfile.multi)
 - [ ] Docker env: test image & docker-compose
 - [ ] Front: use kebab-case syntax for custom components in templates  
