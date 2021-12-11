@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Spinner v-if="loading"/>
+    <Spinner v-if="loading" />
     <Error v-else-if="error">
       {{ error }}
     </Error>

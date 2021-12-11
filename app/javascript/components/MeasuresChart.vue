@@ -1,9 +1,9 @@
 <template>
   <div class="chart-container">
     <canvas
-        id="chart"
-        ref="chart"
-        data-testid="chart"
+      id="chart"
+      ref="chart"
+      data-testid="chart"
     />
   </div>
 </template>
