@@ -132,17 +132,20 @@ RSpec.describe 'measures:import', type: :task do
   context 'when measure file already imported successfully' do
     let(:file_date) { DateTime.new(2020, 12, 8, 20, 10, 0) }
     let(:file_name) { "touch_#{file_date.strftime('%Y%m%d')}.csv" }
+    let(:next_file_name) { "touch_#{file_date.next_day.strftime('%Y%m%d')}.csv" }
     let(:importation) { create(:importation, :successful, file_name: file_name) }
 
     before do
       importation
       FakeBoiler.stub_file file_name, MeasuresFileContent.build
+      FakeBoiler.stub_file next_file_name, MeasuresFileContent.build
       task.execute from: FakeBoiler.url
     end
 
     it { expect(importation).to exists }
     it { expect(Rails.logger).to have_received(:info).with("File \"#{file_name}\" skipped (already imported)").once }
-    it { expect(Rails.logger).to have_received(:info).with(%r{0/0 file\(s\) imported successfully.}).once }
+    it { expect(Rails.logger).to have_received(:info).with(/File "#{next_file_name}" successfully imported/).once }
+    it { expect(Rails.logger).to have_received(:info).with(%r{1/1 file\(s\) imported successfully.}).once }
     it { expect(Rails.logger).to have_received(:info).with(/1 skipped/).once }
   end
 

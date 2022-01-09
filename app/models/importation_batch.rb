@@ -13,7 +13,7 @@ class ImportationBatch
 
   def run!
     @all_files.each do |file|
-      break unless skip_if_not_importable(file)
+      next unless skip_if_not_importable(file)
 
       import! file
     end
