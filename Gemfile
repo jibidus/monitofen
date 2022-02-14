@@ -72,14 +72,14 @@ group :test do
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers', '>= 4.4.1'
+  gem 'webdrivers', '>= 5.0.0'
   # Mock HTTP requests
   gem 'webmock', '>= 3.10.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
-gem "nokogiri", "~> 1.12.0"
+gem "nokogiri", "~> 1.12.5"
 
 gem "require_all", "~> 3.0"
 
