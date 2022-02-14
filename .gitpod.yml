@@ -1,0 +1,26 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: >
+      bundle install &&
+      yarn install &&
+      rake db:setup
+    command: >
+      rails server
+
+ports:
+  # Rails server
+  - port: 3000
+    onOpen: open-preview
+  # PostgreSQL server
+  - port: 5432
+    onOpen: ignore
+
+vscode:
+  extensions:
+    - rebornix.ruby
+    - octref.vetur
+    - connorshea.vscode-ruby-test-adapter
+    - bung87.rails
+    - aki77.rails-db-schema

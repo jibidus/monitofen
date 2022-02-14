@@ -1,4 +1,5 @@
-# Monitofen [![Build Status][ci-image]][ci] [![Code Climate][grade-image]][grade]
+# Monitofen [![Build Status][ci-image]][ci] [![Code Climate][grade-image]][grade] [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/jibidus/monitofen)
+
 
 ## What is monitofen?
 
