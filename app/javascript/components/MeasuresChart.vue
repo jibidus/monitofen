@@ -84,6 +84,8 @@ export default {
 
 <style scoped>
 .chart-container {
-  min-height: 25rem
+  position: relative;
+  margin: auto;
+  min-height: 60vh;
 }
 </style>
