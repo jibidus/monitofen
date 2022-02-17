@@ -61,16 +61,19 @@ end
 puts "All metrics updated."
 
 def create_fake_measures(day)
+  count = 0
   file_name = "touch_#{day.strftime('%Y%m%d')}.csv"
   Importation.execute(file_name) do |importation|
     ApplicationRecord.transaction do
       date = day.beginning_of_day
       while date < day.end_of_day do
-        Measure.create! :date => date, TEMPERATURE_COLUMN_NAME => Random.rand(10), :importation => importation
-        date = date + 30.minute
+        Measure.create! :date => date, TEMPERATURE_COLUMN_NAME => 10+Random.rand/10, :importation => importation
+        date = date + 1.minute
+        count += 1
       end
     end
   end
+  count
 end
 
 ((Date.yesterday - 2.day)..Date.yesterday).each do |day|
@@ -79,6 +82,6 @@ end
     next
   end
 
-  create_fake_measures day
-  puts "Measures on #{day} imported with random temperatures."
+  count = create_fake_measures(day)
+  puts "#{count} measures on #{day} imported with random temperatures."
 end
