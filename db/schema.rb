@@ -10,17 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_12_202620) do
-
+ActiveRecord::Schema[7.0].define(version: 2021_02_12_202620) do
   create_table "importations", force: :cascade do |t|
     t.string "file_name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "status", null: false
   end
 
   create_table "measures", force: :cascade do |t|
-    t.datetime "date", null: false
+    t.datetime "date", precision: nil, null: false
     t.float "metric_0"
     t.float "metric_1"
     t.float "metric_2"
@@ -75,8 +74,8 @@ ActiveRecord::Schema.define(version: 2021_02_12_202620) do
     t.float "metric_51"
     t.integer "measures_id"
     t.integer "importation_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["date"], name: "index_measures_on_date", unique: true
     t.index ["importation_id"], name: "index_measures_on_importation_id"
     t.index ["measures_id"], name: "index_measures_on_measures_id"
@@ -85,8 +84,8 @@ ActiveRecord::Schema.define(version: 2021_02_12_202620) do
   create_table "metrics", force: :cascade do |t|
     t.string "label", null: false
     t.string "column_name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["column_name"], name: "index_metrics_on_column_name", unique: true
   end
 
