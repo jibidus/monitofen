@@ -23,5 +23,8 @@ module Okofen
 
     # Max measures returned in a single request
     config.max_returned_measures = 10_000
+
+    # Allow requests from anywhere
+    config.hosts.clear
   end
 end

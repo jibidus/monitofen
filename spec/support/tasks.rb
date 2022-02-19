@@ -18,7 +18,7 @@ module TaskExampleGroup
     let(:tasks) { Rake::Task }
 
     # Make the Rake task available as `task` in your examples:
-    subject(:task) { tasks[task_name] } # rubocop:disable RSpec/LeadingSubject
+    subject(:task) { tasks[task_name] }
   end
 end
 

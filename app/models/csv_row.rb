@@ -1,9 +1,7 @@
 # TODO: fix name (does not contain measure/metric semantic whereas implementation does)
-# rubocop:disable Style/AsciiComments
 # Row of a measures file. Content looks like this:
 #         Datum ;Zeit ;AT [°C];KT Ist [°C];
 #         10.12.2020;00:03:24;2,4;39,6;
-# rubocop:enable Style/AsciiComments
 class CsvRow
   def initialize(row, metric_mapper, errors)
     @row = row
