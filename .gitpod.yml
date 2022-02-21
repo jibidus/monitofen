@@ -5,6 +5,7 @@ tasks:
   - init: >
       bundle install &&
       yarn install &&
+      ./node_modules/cypress/bin/cypress install &&
       rake db:setup
     command: >
       rails server
@@ -15,6 +16,12 @@ ports:
     onOpen: open-preview
   # PostgreSQL server
   - port: 5432
+    onOpen: ignore
+  - port: 5900
+    onOpen: ignore
+  - port: 6080
+    onOpen: open-browser
+  - port: 10000
     onOpen: ignore
 
 vscode:
