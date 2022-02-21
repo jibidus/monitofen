@@ -1,5 +1,5 @@
 import TurbolinksAdapter from 'vue-turbolinks'
-import Vue from 'vue/dist/vue.esm'
+import Vue from 'vue'
 import VueRouter from 'vue-router'
 import vuetify from '../plugins/vuetify';
 import App from '../App';
