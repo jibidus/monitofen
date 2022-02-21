@@ -85,8 +85,6 @@ gem "require_all", "~> 3.0"
 
 gem 'sendgrid-ruby'
 
-gem 'validb', '>= 2.0.0'
-
 gem "model_validator", ">= 1.3.0"
 
 gem "unicorn", "~> 6.0", platform: :ruby
