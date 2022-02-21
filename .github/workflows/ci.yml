@@ -42,8 +42,29 @@ jobs:
         with:
           name: front-coverage
           path: coverage/frontend/lcov.info
+  test-e2e:
+    runs-on: ubuntu-20.04
+    needs: [backend, frontend]
+    env:
+      RAILS_ENV: test
+      CYPRESS_BASE_URL: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: |
+          sudo apt-get -yqq install libpq-dev
+          bundle install --no-deployment --jobs 4 --retry 3
+      - uses: cypress-io/github-action@v2
+        with:
+          start: bundle exec rails server
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+          headless: true
   test-deployment:
     runs-on: ubuntu-20.04
+    needs: [backend, frontend]
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
