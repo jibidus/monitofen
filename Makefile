@@ -1,7 +1,7 @@
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-test: test-back test-front ## Test application (backend and frontend)
+test: test-back test-front test-e2e ## Test application (backend and frontend)
 
 test-back: ## Test backend
 	FB_TRACE=1 bundle exec rspec
@@ -14,6 +14,9 @@ test-front-watch: ## Test frontend in watch mode
 
 test-front-coverage: ## Test frontend with coverage
 	yarn test --coverage --passWithNoTests
+
+test-e2e:
+	bundle exec rake cypress:run
 
 lint: lint-back lint-front ## Check file format, smell code, conventions…
 

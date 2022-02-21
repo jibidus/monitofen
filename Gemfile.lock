@@ -98,6 +98,9 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    cypress-rails (0.5.3)
+      puma (>= 3.8.0)
+      railties (>= 5.2.0)
     database_cleaner-active_record (2.0.1)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
@@ -382,6 +385,7 @@ DEPENDENCIES
   bundle-audit (~> 0.1.0)
   byebug
   capybara (>= 3.36.0)
+  cypress-rails
   database_cleaner-active_record
   factory_bot_rails (~> 6.2, >= 6.2.0)
   factory_trace
