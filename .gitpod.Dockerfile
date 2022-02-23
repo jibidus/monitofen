@@ -23,4 +23,6 @@ RUN sudo apt-get install -y \
     xauth \
     xvfb
 
+RUN sudo rm -rf /var/lib/apt/lists/*
+
 ENV CYPRESS_CACHE_FOLDER=/workspace/.cypress-cache
