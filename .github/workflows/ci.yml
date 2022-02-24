@@ -62,6 +62,7 @@ jobs:
           wait-on: 'http://localhost:3000'
           browser: chrome
           headless: true
+          command-prefix: 'percy exec --'
   test-deployment:
     runs-on: ubuntu-20.04
     needs: [backend, frontend]
