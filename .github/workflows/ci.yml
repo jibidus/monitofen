@@ -79,27 +79,6 @@ jobs:
           cache: 'yarn'
       - run: yarn install --frozen-lockfile
       - run: SECRET_KEY_BASE="$(bundle exec rails secret)" RAILS_ENV=production bundle exec rails assets:precompile
-  coverage:
-    runs-on: ubuntu-20.04
-    needs: [backend, frontend]
-    if: github.ref == 'refs/heads/main'
-    steps:
-      # Require by codeclimate-action since GITHUB_COMMITTED_AT is not available
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
-        with:
-          name: back-coverage
-      - uses: actions/download-artifact@v2
-        with:
-          name: front-coverage
-      - name: Publish test coverage
-        uses: paambaati/codeclimate-action@v3.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageLocations: |
-            ${{github.workspace}}/.resultset.json:simplecov
-            ${{github.workspace}}/lcov.info:lcov
   docker:
     runs-on: ubuntu-20.04
     needs: [backend, frontend]
