@@ -47,6 +47,14 @@ Note: `[<boiler url>]` can be removed for the benefit of the `MONITOFEN_BOILER_B
 rails "measures:import[<measures file path>]"
 ```
 
+## How to contribute?
+
+1. [Setup your local environment](doc/setup_dev.md)
+2. Run tests with `make test`
+3. Setup local database with `bundle exec rails db:setup`
+4. Start local server with `make start`
+5. Go to [http://localhost:3000](http://localhost:3000)
+
 ## TODO
 
 - [ ] s/Measure/Measurement
