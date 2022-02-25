@@ -56,6 +56,7 @@ jobs:
       - run: |
           sudo apt-get -yqq install libpq-dev
           bundle install --no-deployment --jobs 4 --retry 3
+      - run: bundle exec rails db:setup
       - uses: cypress-io/github-action@v2
         with:
           start: bundle exec rails server

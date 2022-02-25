@@ -20,3 +20,6 @@ import './commands'
 // require('./commands')
 
 import '@percy/cypress'
+
+import dayjs from 'dayjs'
+Cypress.dayjs = dayjs
