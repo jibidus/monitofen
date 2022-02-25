@@ -1,8 +1,30 @@
 describe('Home', () => {
-  it('display application name', () => {
+  it('displays application name', () => {
       cy.visit('/')
       cy.get('h1')
         .should('contain', 'Monitofen')
       cy.percySnapshot()
-  }) 
+  })
+
+  it('display measures', () => {
+        cy.visit('/')
+        cy.get('[data-action="explore-measures"]')
+         .click()
+        cy.get('[data-type="title"]')
+          .should('contain', 'Measures explorer')
+        cy.getByLabel('Day')
+          .click()
+        const yesterday = Cypress.dayjs().subtract(2, 'day')
+        cy.get('[role="menu"]')
+          .contains('button', yesterday.date())
+          .click();
+        cy.getByLabel('Metric')
+          .click()
+        cy.get('[role="listbox"]')
+          .contains('T extérieure')
+          .click()
+        cy.contains('1438 measure(s) found')
+        cy.get('[data-testid="chart"]')
+        cy.percySnapshot()
+    })
 })

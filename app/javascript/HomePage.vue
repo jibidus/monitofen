@@ -3,7 +3,10 @@
     <div>
       <h1>Monitofen</h1>
       This application will allow you to
-      <router-link to="measures">
+      <router-link
+        to="measures"
+        data-action="explore-measures"
+      >
         monitor all measures of your Okofen boiler
       </router-link>
     </div>

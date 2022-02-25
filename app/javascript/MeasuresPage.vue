@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col>
-        <h1>
+        <h1 data-type="title">
           <v-icon>fa-analytics</v-icon>
           Measures explorer
         </h1>
