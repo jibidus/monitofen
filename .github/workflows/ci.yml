@@ -64,6 +64,13 @@ jobs:
           browser: chrome
           headless: true
           command-prefix: 'percy exec --'
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: test-e2e
+          path: |
+            tmp/cypress_screenshots/
+            log/test.log
   test-deployment:
     runs-on: ubuntu-20.04
     needs: [backend, frontend]
