@@ -60,28 +60,29 @@ TEMPERATURE_COLUMN_NAME = 'metric_0'
 end
 puts "All metrics updated."
 
-def create_fake_measures(day)
-  count = 0
-  file_name = "touch_#{day.strftime('%Y%m%d')}.csv"
+require 'csv'
+ONE_DAY_MEASURES_CSV = "db/measures.csv"
+
+def create_measures(date)
+  file_name = "touch_#{date.strftime('%Y%m%d')}.csv"
   Importation.execute(file_name) do |importation|
     ApplicationRecord.transaction do
-      date = day.beginning_of_day
-      while date < day.end_of_day do
-        Measure.create! :date => date, TEMPERATURE_COLUMN_NAME => 10+Random.rand/10, :importation => importation
-        date = date + 1.minute
-        count += 1
+      CSV.foreach(ONE_DAY_MEASURES_CSV, headers: true) do |row|
+        measure = Measure.new(row.to_hash)
+        measure.importation = importation
+        measure.date = measure.date.change(year: date.year, month: date.month, day: date.day)
+        measure.save!
       end
     end
   end
-  count
 end
 
 ((Date.yesterday - 2.day)..Date.yesterday).each do |day|
   if Measure.taken(day).any?
-    puts "Importation of measures on #{day} skipped: data already exist."
+    puts "Measures creation on #{day} skipped: already exist."
     next
   end
 
-  count = create_fake_measures(day)
-  puts "#{count} measures on #{day} imported with random temperatures."
+  create_measures(day)
+  puts "Measures created on #{day}."
 end
