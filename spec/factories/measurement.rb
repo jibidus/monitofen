@@ -1,5 +1,5 @@
 FactoryBot.define do # rubocop:disable Metrics/BlockLength
-  factory :measure do # rubocop:disable Metrics/BlockLength
+  factory :measurement do # rubocop:disable Metrics/BlockLength
     date { Time.zone.now }
     metric_0 { 1.0 }
     metric_1 { 1.1 }

@@ -21,8 +21,8 @@ module Okofen
     #config.autoload_paths += %W(#{config.root}/lib)
     #config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
-    # Max measures returned in a single request
-    config.max_returned_measures = 10_000
+    # Max measurements returned in a single request
+    config.max_returned_measurements = 10_000
 
     # Allow requests from anywhere
     config.hosts.clear

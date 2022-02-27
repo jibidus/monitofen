@@ -1,7 +1,7 @@
 import HomePage from "./HomePage";
-import MeasuresPage from "./MeasuresPage";
+import MeasurementsPage from "./MeasurementsPage";
 
 export default [
     {name: 'home', path: '/', component: HomePage, meta: {title: 'Home'}},
-    {name: 'measures', path: '/measures', component: MeasuresPage, meta: {title: 'Measures'}},
+    {name: 'measurements', path: '/measurements', component: MeasurementsPage, meta: {title: 'Measurements'}},
 ]

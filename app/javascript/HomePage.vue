@@ -4,10 +4,10 @@
       <h1>Monitofen</h1>
       This application will allow you to
       <router-link
-        to="measures"
-        data-action="explore-measures"
+        to="measurements"
+        data-action="explore-measurements"
       >
-        monitor all measures of your Okofen boiler
+        explore measurements of your Okofen boiler
       </router-link>
     </div>
   </v-row>

@@ -1,6 +1,6 @@
-# Get measures
+# Get measurements
 
-List available measures:
+List available measurements:
 
 ```bash
 http GET http://192.168.1.23:8080/logfiles/pelletronic/

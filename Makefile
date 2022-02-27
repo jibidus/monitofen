@@ -39,10 +39,10 @@ lint-front-fix: ## Fix backend violations when possible
 security: ## Check security alerts in gems
 	bundle exec bundle-audit
 
-import: ## Import measures from boiler
-	rails measures:import
+import: ## Import measurements from boiler
 
 deploy: ## Deploy last version locally
+	rails measurements:import
 	git pull --rebase
 	bundle install
 	yarn install --frozen-lockfile --production
@@ -63,7 +63,7 @@ docker-db-setup:
 	docker-compose exec web rails db:setup
 
 docker-import:
-	docker-compose exec web rails measures:reset measures:import
+	docker-compose exec web rails measurements:reset measurements:import
 
 docker-stop:
 	docker-compose down

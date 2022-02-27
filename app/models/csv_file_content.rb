@@ -1,7 +1,7 @@
 require 'csv'
 
-# TODO: fix name (does not contain measure/metric semantic whereas implementation does)
-# Content of a measures file. Looks like this:
+# TODO: fix name (does not contain measurement/metric semantic whereas implementation does)
+# Content of a measurements file. Looks like this:
 #   Datum ;Zeit ;AT [°C];KT Ist [°C];
 #   10.12.2020;00:03:24;2,4;39,6;
 #   10.13.2020;00:03:25;2,5;39,8;
@@ -20,13 +20,13 @@ class CsvFileContent
   end
 
   def import!
-    measures_count = each_row do |row|
-      measure = row.parse
-      yield measure
-      measure.save!
+    measurements_count = each_row do |row|
+      measurement = row.parse
+      yield measurement
+      measurement.save!
     end
     print_errors
-    measures_count
+    measurements_count
   end
 
   private

@@ -6,12 +6,12 @@ describe('Home', () => {
       cy.percySnapshot()
   })
 
-  it('display measures', () => {
+  it('display measurements', () => {
         cy.visit('/')
-        cy.get('[data-action="explore-measures"]')
+        cy.get('[data-action="explore-measurements"]')
          .click()
         cy.get('[data-type="title"]')
-          .should('contain', 'Measures explorer')
+          .should('contain', 'Measurements explorer')
         cy.getByLabel('Day')
           .click()
         const yesterday = Cypress.dayjs().subtract(2, 'day')
@@ -23,7 +23,7 @@ describe('Home', () => {
         cy.get('[role="listbox"]')
           .contains('T extérieure')
           .click()
-        cy.contains('1438 measure(s) found')
+        cy.contains('1438 measurement(s) found')
         cy.get('[data-testid="chart"]')
         cy.percySnapshot()
     })

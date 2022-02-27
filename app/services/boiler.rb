@@ -14,8 +14,8 @@ class Boiler
     end
   end
 
-  def measures_files
-    files.select(&:measures?)
+  def measurements_files
+    files.select(&:measurements?)
   end
 
   private

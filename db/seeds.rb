@@ -61,28 +61,28 @@ end
 puts "All metrics updated."
 
 require 'csv'
-ONE_DAY_MEASURES_CSV = "db/measures.csv"
+ONE_DAY_MEASUREMENTS_CSV = "db/measurements.csv"
 
-def create_measures(date)
+def create_measurements(date)
   file_name = "touch_#{date.strftime('%Y%m%d')}.csv"
   Importation.execute(file_name) do |importation|
     ApplicationRecord.transaction do
-      CSV.foreach(ONE_DAY_MEASURES_CSV, headers: true) do |row|
-        measure = Measure.new(row.to_hash)
-        measure.importation = importation
-        measure.date = measure.date.change(year: date.year, month: date.month, day: date.day)
-        measure.save!
+      CSV.foreach(ONE_DAY_MEASUREMENTS_CSV, headers: true) do |row|
+        measurement = Measurement.new(row.to_hash)
+        measurement.importation = importation
+        measurement.date = measurement.date.change(year: date.year, month: date.month, day: date.day)
+        measurement.save!
       end
     end
   end
 end
 
 ((Date.yesterday - 2.day)..Date.yesterday).each do |day|
-  if Measure.taken(day).any?
-    puts "Measures creation on #{day} skipped: already exist."
+  if Measurement.taken(day).any?
+    puts "Measurements creation on #{day} skipped: already exist."
     next
   end
 
-  create_measures(day)
-  puts "Measures created on #{day}."
+  create_measurements(day)
+  puts "Measurements created on #{day}."
 end
