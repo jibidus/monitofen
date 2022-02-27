@@ -45,7 +45,7 @@ import: ## Import measures from boiler
 deploy: ## Deploy last version locally
 	git pull --rebase
 	bundle install
-	yarn install --frozen-lockfile
+	yarn install --frozen-lockfile --production
 	bundle exec whenever --update-crontab
 	rails db:migrate db:validate
 	rails assets:precompile
