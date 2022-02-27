@@ -1,14 +1,14 @@
 class FakeBoiler
   def self.reset
     @all_file_names = []
-    @measure_date = Date.new(2001, 2, 25)
+    @measurement_date = Date.new(2001, 2, 25)
   end
 
   def self.url
     'http://192.168.1.23:8080'
   end
 
-  def self.stub_measure_file(date: new_date, content: MeasuresFileContent.build(date: date))
+  def self.stub_measurement_file(date: new_date, content: MeasurementsFileContent.build(date: date))
     file_name = "touch_#{date.strftime('%Y%m%d')}.csv"
     stub_file file_name, content
   end
@@ -32,8 +32,8 @@ class FakeBoiler
   end
 
   def self.new_date
-    @measure_date += +1.day
-    @measure_date
+    @measurement_date += +1.day
+    @measurement_date
   end
 
   # rubocop:disable Metrics/MethodLength

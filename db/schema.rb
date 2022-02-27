@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_02_12_202620) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_27_193429) do
   create_table "importations", force: :cascade do |t|
     t.string "file_name", null: false
     t.datetime "created_at", null: false
@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_02_12_202620) do
     t.string "status", null: false
   end
 
-  create_table "measures", force: :cascade do |t|
+  create_table "measurements", force: :cascade do |t|
     t.datetime "date", precision: nil, null: false
     t.float "metric_0"
     t.float "metric_1"
@@ -76,9 +76,9 @@ ActiveRecord::Schema[7.0].define(version: 2021_02_12_202620) do
     t.integer "importation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["date"], name: "index_measures_on_date", unique: true
-    t.index ["importation_id"], name: "index_measures_on_importation_id"
-    t.index ["measures_id"], name: "index_measures_on_measures_id"
+    t.index ["date"], name: "index_measurements_on_date", unique: true
+    t.index ["importation_id"], name: "index_measurements_on_importation_id"
+    t.index ["measures_id"], name: "index_measurements_on_measures_id"
   end
 
   create_table "metrics", force: :cascade do |t|
@@ -89,6 +89,6 @@ ActiveRecord::Schema[7.0].define(version: 2021_02_12_202620) do
     t.index ["column_name"], name: "index_metrics_on_column_name", unique: true
   end
 
-  add_foreign_key "measures", "importations"
-  add_foreign_key "measures", "measures", column: "measures_id"
+  add_foreign_key "measurements", "importations"
+  add_foreign_key "measurements", "measurements", column: "measures_id"
 end

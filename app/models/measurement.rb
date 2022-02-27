@@ -1,4 +1,4 @@
-class Measure < ApplicationRecord
+class Measurement < ApplicationRecord
   validates :date, presence: true, uniqueness: true
   belongs_to :importation, optional: false
 

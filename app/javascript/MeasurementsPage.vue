@@ -4,7 +4,7 @@
       <v-col>
         <h1 data-type="title">
           <v-icon>fa-analytics</v-icon>
-          Measures explorer
+          Measurements explorer
         </h1>
       </v-col>
     </v-row>
@@ -20,7 +20,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <MeasuresChartWrapper
+        <MeasurementsChartWrapper
           v-if="metric"
           :metric="metric"
           :from="timePeriod.from"
@@ -32,13 +32,13 @@
 </template>
 
 <script>
-import MeasuresChartWrapper from "./components/MeasuresChartWrapper";
+import MeasurementsChartWrapper from "./components/MeasurementsChartWrapper";
 import MetricsSelect from "./components/MetricsSelect";
 import TimePeriodSelector from "./components/TimePeriodSelector";
 
 export default {
-  name: "MeasuresPage",
-  components: {TimePeriodSelector, MetricsSelect, MeasuresChartWrapper},
+  name: "MeasurementsPage",
+  components: {TimePeriodSelector, MetricsSelect, MeasurementsChartWrapper: MeasurementsChartWrapper},
   data() {
     return {metric: null, timePeriod: null}
   },

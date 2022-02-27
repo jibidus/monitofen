@@ -14,9 +14,9 @@ import moment from "moment-timezone";
 import 'chartjs-adapter-moment';
 
 export default {
-  name: "MeasuresChart",
+  name: "MeasurementsChart",
   props: {
-    measures: {required: true, type: Array},
+    measurements: {required: true, type: Array},
     metricLabel: {required: true, type: String},
   },
   data() {
@@ -25,8 +25,8 @@ export default {
     };
   },
   computed: {
-    parsedMeasures() {
-      return this.measures.map(m => ({
+    parsedMeasurements() {
+      return this.measurements.map(m => ({
         date: moment(m.date),
         value: m.value
       }));
@@ -45,11 +45,11 @@ export default {
       this.chart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: this.parsedMeasures.map(m => m.date),
+          labels: this.parsedMeasurements.map(m => m.date),
           datasets: [
             {
               label: this.metricLabel,
-              data: this.measures.map(m => m.value),
+              data: this.measurements.map(m => m.value),
               fill: false,
               borderColor: 'rgb(75, 192, 192)',
               tension: 0.1,

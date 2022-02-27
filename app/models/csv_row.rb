@@ -1,5 +1,5 @@
-# TODO: fix name (does not contain measure/metric semantic whereas implementation does)
-# Row of a measures file. Content looks like this:
+# TODO: fix name (does not contain measurement/metric semantic whereas implementation does)
+# Row of a measurements file. Content looks like this:
 #         Datum ;Zeit ;AT [°C];KT Ist [°C];
 #         10.12.2020;00:03:24;2,4;39,6;
 class CsvRow
@@ -10,7 +10,7 @@ class CsvRow
   end
 
   def parse
-    measure = Measure.new(date: date)
+    measurement = Measurement.new(date: date)
     each_value do |column_name, value|
       metric = @metric_mapper.find(column_name)
       if metric.nil?
@@ -18,9 +18,9 @@ class CsvRow
         next
       end
 
-      measure.write_attribute(metric.column_name, value)
+      measurement.write_attribute(metric.column_name, value)
     end
-    measure
+    measurement
   end
 
   private

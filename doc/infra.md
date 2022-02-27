@@ -7,7 +7,7 @@
 Now, you can:
 
 - Browse `http://localhost:3000` to see fake data on last 3 days.
-- Or import real measures from your boiler with `make docker-import` before.
+- Or import real measurements from your boiler with `make docker-import` before.
 
 Note: `make docker-cleanup` can be useful to cleanup all docker images.
 
@@ -23,7 +23,7 @@ This setup will install the following components:
 - rvm
 - git
 - the Monitofen app
-- a cron to import new measures every day
+- a cron to import new measurements every day
 
 ## Step by step
 

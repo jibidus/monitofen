@@ -1,6 +1,6 @@
 class Importation < ApplicationRecord
   validates :file_name, :status, presence: true
-  has_many :measures, dependent: :destroy
+  has_many :measurements, dependent: :destroy
   validates :status, inclusion: { in: %i[running successful failed] }
 
   def status

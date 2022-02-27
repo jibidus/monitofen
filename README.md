@@ -3,8 +3,8 @@
 
 ## What is monitofen?
 
-Monitofen is used to **monitor** measures of an **Okofen boiler**.
-Measures are imported daily and are exposed through a webapp.
+Monitofen is used to **monitor** measurements of an **Okofen boiler**.
+Measurements are imported daily and are exposed through a webapp.
 
 ## Why not using [Okovision](http://okovision.dronek.com)?
 
@@ -15,7 +15,7 @@ It is unfortunate, since `Okovision` brings a lot of interesting features.
 ## What can I do with Monitofen?
 
 - Daily import of measurements
-- Visualize measures by selecting a day and a metric
+- Visualize measurements by selecting a day and a metric
 
 ## 🐳 How to test Monitofen?
 
@@ -31,20 +31,20 @@ Here is a tutorial to [install Monitofen on Raspberry Pi OS Lite](doc/infra.md).
 make deploy
 ```
 
-## How to import boiler measures manually from boiler url?
+## How to import boiler measurements manually from boiler url?
 
 ```shell
-rails "measures:import[<boiler url>]"
+rails "measurements:import[<boiler url>]"
 ```
 
 Where boiler url is `http://hostname:port` (ex: `http://192.168.1.10:8080`).
 
 Note: `[<boiler url>]` can be removed for the benefit of the `MONITOFEN_BOILER_BASE_URL` env var.
 
-## How to import boiler measures manually from filesystem?
+## How to import boiler measurements manually from filesystem?
 
 ```shell
-rails "measures:import[<measures file path>]"
+rails "measurements:import[<measurements file path>]"
 ```
 
 ## How to contribute?
@@ -57,11 +57,10 @@ rails "measures:import[<measures file path>]"
 
 ## TODO
 
-- [ ] s/Measure/Measurement
 - [ ] Docker env: reduce docker image size (see https://github.com/progapandist/anycable_rails_demo/blob/master/.dockerdev/Dockerfile.multi)
 - [ ] Docker env: test image & docker-compose
 - [ ] Front: use kebab-case syntax for custom components in templates  
-- [ ] Front: filter measures by time period
+- [ ] Front: filter measurements by time period
 - [ ] Migrate to TypeScript
 - [ ] Dev: front auto-reload
 - [ ] Dev: move stats floating div on the right (and breakpoint on bottom right) 
@@ -70,9 +69,9 @@ rails "measures:import[<measures file path>]"
 - [ ] i18n (metrics label, graph infos... start with all in english)
 - [ ] Integrate linters with [reviewdog](https://github.com/reviewdog/reviewdog)
 - [ ] Harmonize NodeJS versions (infra doc VS Dockerfile VS ci)
-- [ ] Bug: measures importation when 1 file already imported (output is wrong)
+- [ ] Bug: measurements importation when 1 file already imported (output is wrong)
 - [ ] Bug: (chart) first hours of day are wrong ("Dev 7, 2021, 12:00:00am" instead of "Dev 7, 2021, 00:00:00am" or "Dev 6, 2021, 12:00:00am")
-- [ ] Display measures units
+- [ ] Display measurements units
 
 ## Additional documentation
 

@@ -11,7 +11,7 @@ class BoilerFile
     @path = url
   end
 
-  def measures?
+  def measurements?
     /\.csv$/ =~ @path && @name != HEADER_FILE
   end
 
@@ -45,12 +45,12 @@ class BoilerFile
     Rails.logger.info "Import file #{name}…"
     start = Time.current
     count = ApplicationRecord.transaction do
-      csv_content.import! do |measure|
-        measure.importation = importation
+      csv_content.import! do |measurement|
+        measurement.importation = importation
       end
     end
     Rails.logger.info <<~MSG
-      File \"#{name}\" successfully imported with #{count} measure(s) in #{Time.current - start}s.
+      File \"#{name}\" successfully imported with #{count} measurement(s) in #{Time.current - start}s.
     MSG
   end
 end
