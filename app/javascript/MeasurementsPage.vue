@@ -10,7 +10,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <MetricsSelect v-model="metric" />
+        <metrics-select v-model="metric" />
       </v-col>
       <v-col>
         <time-period-selector
@@ -20,7 +20,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <MeasurementsChartWrapper
+        <measurements-chart-wrapper
           v-if="metric"
           :metric="metric"
           :from="timePeriod.from"

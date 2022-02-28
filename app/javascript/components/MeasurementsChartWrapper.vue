@@ -12,7 +12,7 @@
     </div>
     <div v-else>
       {{ measurements.length }} measurement(s) found
-      <MeasurementsChart
+      <measurements-chart
         :measurements="measurements"
         :metric-label="metric.label"
       />
