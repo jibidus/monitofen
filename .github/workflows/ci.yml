@@ -48,6 +48,7 @@ jobs:
     env:
       RAILS_ENV: test
       CYPRESS_BASE_URL: http://localhost:3000
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
