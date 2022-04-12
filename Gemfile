@@ -80,7 +80,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
-gem "nokogiri", "~> 1.13.2"
+gem "nokogiri", "~> 1.13.4"
 
 gem "require_all", "~> 3.0"
 
