@@ -58,7 +58,7 @@ group :development do
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'listen', '~> 3.3'
-  gem 'rack-mini-profiler', '~> 2.0'
+  gem 'rack-mini-profiler', '~> 2.3', '>= 2.3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "bundle-audit", "~> 0.1.0"
   gem 'guard-rspec', require: false
@@ -68,7 +68,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 3.36.0'
+  gem 'capybara', '>= 3.37.1'
   gem 'database_cleaner-active_record'
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'
