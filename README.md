@@ -58,6 +58,8 @@ rails "measurements:import[<measurements file path>]"
 ## TODO
 
 - [ ] Docker env: reduce docker image size (see https://github.com/progapandist/anycable_rails_demo/blob/master/.dockerdev/Dockerfile.multi)
+- [ ] Use json api (see https://github.com/thannaske/oekofen-json-documentation
+  for documentation)
 - [ ] Docker env: test image & docker-compose
 - [ ] Front: filter measurements by time period
 - [ ] Migrate to TypeScript
